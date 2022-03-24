@@ -126,6 +126,10 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-Yumemi-ios-training/Yumemi-ios-training/GeneratedByTools/Rswift/R.generated.swift
+# R.swift
+#
+# R.generated.swift file will be automatically genrated by R.swift
+R.generated.swift
+
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,macos
