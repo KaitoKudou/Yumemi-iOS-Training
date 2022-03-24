@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E731261B27EC486A003E27DC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261A27EC486A003E27DC /* R.generated.swift */; };
 		E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261D27EC4F34003E27DC /* WeatherViewController.swift */; };
+		E731262127EC537F003E27DC /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262027EC537F003E27DC /* WeatherModel.swift */; };
+		E731262327EC5479003E27DC /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262227EC5479003E27DC /* WeatherResponse.swift */; };
+		E731262727EC5753003E27DC /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262627EC5753003E27DC /* APIError.swift */; };
 		E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478D27EC1D2F0051653C /* AppDelegate.swift */; };
 		E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */; };
 		E7E1479527EC1D2F0051653C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479327EC1D2F0051653C /* Main.storyboard */; };
@@ -41,6 +44,9 @@
 /* Begin PBXFileReference section */
 		E731261A27EC486A003E27DC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		E731261D27EC4F34003E27DC /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		E731262027EC537F003E27DC /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		E731262227EC5479003E27DC /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
+		E731262627EC5753003E27DC /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		E7E1478A27EC1D2F0051653C /* Yumemi-ios-training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yumemi-ios-training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E1478D27EC1D2F0051653C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +112,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E731261F27EC5367003E27DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E731262027EC537F003E27DC /* WeatherModel.swift */,
+				E731262227EC5479003E27DC /* WeatherResponse.swift */,
+				E731262627EC5753003E27DC /* APIError.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E7E1478127EC1D2F0051653C = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 			children = (
 				E7E1478D27EC1D2F0051653C /* AppDelegate.swift */,
 				E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */,
+				E731261F27EC5367003E27DC /* Model */,
 				E731261C27EC4ECF003E27DC /* View */,
 				E7E1479327EC1D2F0051653C /* Main.storyboard */,
 				E7E1479627EC1D2F0051653C /* Assets.xcassets */,
@@ -322,9 +339,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */,
+				E731262327EC5479003E27DC /* WeatherResponse.swift in Sources */,
 				E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */,
 				E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */,
 				E731261B27EC486A003E27DC /* R.generated.swift in Sources */,
+				E731262127EC537F003E27DC /* WeatherModel.swift in Sources */,
+				E731262727EC5753003E27DC /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
