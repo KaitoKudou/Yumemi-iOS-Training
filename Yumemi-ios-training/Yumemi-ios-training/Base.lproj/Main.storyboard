@@ -17,53 +17,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ibo-I1-Wkl">
-                                <rect key="frame" x="103.5" y="344.5" width="207" height="207"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mC8-cS-fDC">
+                                <rect key="frame" x="103.5" y="642" width="207" height="31"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xx-2x-3FB">
+                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Close"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWZ-nd-Ek9">
+                                        <rect key="frame" x="103.5" y="0.0" width="103.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Reload"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZSu-L7-rHj">
+                                <rect key="frame" x="103.5" y="334.5" width="207" height="227.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ibo-I1-Wkl">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="207"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="height" multiplier="1:1" id="ZbL-Xc-1KY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLj-vq-ipR">
+                                        <rect key="frame" x="0.0" y="207" width="207" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWJ-84-Xg9">
+                                                <rect key="frame" x="0.0" y="0.0" width="103.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="AccentColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owy-KY-Pfd">
+                                                <rect key="frame" x="103.5" y="0.0" width="103.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="Red"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="height" multiplier="1:1" id="ZbL-Xc-1KY"/>
+                                    <constraint firstItem="owy-KY-Pfd" firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="width" multiplier="0.5" id="N2q-sj-1jf"/>
+                                    <constraint firstItem="VWJ-84-Xg9" firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="width" multiplier="0.5" id="Ywe-ny-jsE"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWJ-84-Xg9">
-                                <rect key="frame" x="103.5" y="551.5" width="103.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="AccentColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owy-KY-Pfd">
-                                <rect key="frame" x="207" y="551.5" width="103.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Red"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xx-2x-3FB">
-                                <rect key="frame" x="103.5" y="652.5" width="103.5" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Close"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWZ-nd-Ek9">
-                                <rect key="frame" x="207" y="652.5" width="103.5" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Reload"/>
-                            </button>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ibo-I1-Wkl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0Wp-EH-eX0"/>
-                            <constraint firstItem="VWJ-84-Xg9" firstAttribute="leading" secondItem="ibo-I1-Wkl" secondAttribute="leading" id="518-gW-rE9"/>
-                            <constraint firstItem="ibo-I1-Wkl" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="5rK-N9-qn8"/>
-                            <constraint firstItem="JWZ-nd-Ek9" firstAttribute="top" secondItem="owy-KY-Pfd" secondAttribute="bottom" constant="80" id="5tC-ud-Nsr"/>
-                            <constraint firstItem="VWJ-84-Xg9" firstAttribute="top" secondItem="ibo-I1-Wkl" secondAttribute="bottom" id="F3Y-1h-3qu"/>
-                            <constraint firstItem="JWZ-nd-Ek9" firstAttribute="trailing" secondItem="owy-KY-Pfd" secondAttribute="trailing" id="KNf-tb-Vds"/>
-                            <constraint firstItem="VWJ-84-Xg9" firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="width" multiplier="0.5" id="L28-FQ-bwA"/>
-                            <constraint firstItem="7Xx-2x-3FB" firstAttribute="top" secondItem="VWJ-84-Xg9" secondAttribute="bottom" constant="80" id="bMu-tx-7Fz"/>
-                            <constraint firstItem="owy-KY-Pfd" firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="width" multiplier="0.5" id="dgg-OC-t5Z"/>
-                            <constraint firstItem="owy-KY-Pfd" firstAttribute="top" secondItem="ibo-I1-Wkl" secondAttribute="bottom" id="hwh-9O-cCH"/>
-                            <constraint firstItem="ibo-I1-Wkl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oIL-c7-07O"/>
-                            <constraint firstItem="JWZ-nd-Ek9" firstAttribute="centerX" secondItem="owy-KY-Pfd" secondAttribute="centerX" id="oiE-gM-1sx"/>
-                            <constraint firstItem="7Xx-2x-3FB" firstAttribute="leading" secondItem="VWJ-84-Xg9" secondAttribute="leading" id="qcD-qV-pJ3"/>
-                            <constraint firstItem="owy-KY-Pfd" firstAttribute="trailing" secondItem="ibo-I1-Wkl" secondAttribute="trailing" id="shW-LK-iPN"/>
-                            <constraint firstItem="7Xx-2x-3FB" firstAttribute="centerX" secondItem="VWJ-84-Xg9" secondAttribute="centerX" id="ven-5H-P6L"/>
+                            <constraint firstItem="7Xx-2x-3FB" firstAttribute="centerX" secondItem="VWJ-84-Xg9" secondAttribute="centerX" id="332-yZ-eDv"/>
+                            <constraint firstItem="ZSu-L7-rHj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8pq-3N-Wcy"/>
+                            <constraint firstItem="JWZ-nd-Ek9" firstAttribute="centerX" secondItem="owy-KY-Pfd" secondAttribute="centerX" id="KD6-qT-QIF"/>
+                            <constraint firstItem="mC8-cS-fDC" firstAttribute="top" secondItem="ZSu-L7-rHj" secondAttribute="bottom" constant="80" id="PbX-Bo-KTA"/>
+                            <constraint firstItem="ibo-I1-Wkl" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="StQ-wr-cJn"/>
+                            <constraint firstItem="ZSu-L7-rHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YyQ-qu-L4b"/>
                         </constraints>
                     </view>
                 </viewController>
