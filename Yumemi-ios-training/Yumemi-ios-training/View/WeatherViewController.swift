@@ -16,11 +16,6 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = WeatherPresenter(view: self, model: WeatherModel())
-        inject(presenter: presenter)
-    }
-    
-    func inject(presenter: WeatherPresenterProtocolInput) {
-        self.presenter = presenter
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
