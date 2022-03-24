@@ -9,9 +9,15 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
+    @IBOutlet weak var weatherImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func reloadWeather(_ sender: Any) {
+    }
+    
 }
