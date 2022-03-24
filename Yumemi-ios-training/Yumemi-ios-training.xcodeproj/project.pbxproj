@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E731261B27EC486A003E27DC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261A27EC486A003E27DC /* R.generated.swift */; };
+		E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261D27EC4F34003E27DC /* WeatherViewController.swift */; };
 		E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478D27EC1D2F0051653C /* AppDelegate.swift */; };
 		E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */; };
-		E7E1479227EC1D2F0051653C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1479127EC1D2F0051653C /* ViewController.swift */; };
 		E7E1479527EC1D2F0051653C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479327EC1D2F0051653C /* Main.storyboard */; };
 		E7E1479727EC1D2F0051653C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479627EC1D2F0051653C /* Assets.xcassets */; };
 		E7E1479A27EC1D2F0051653C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479827EC1D2F0051653C /* LaunchScreen.storyboard */; };
@@ -40,10 +40,10 @@
 
 /* Begin PBXFileReference section */
 		E731261A27EC486A003E27DC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		E731261D27EC4F34003E27DC /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		E7E1478A27EC1D2F0051653C /* Yumemi-ios-training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yumemi-ios-training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E1478D27EC1D2F0051653C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E7E1479127EC1D2F0051653C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E7E1479427EC1D2F0051653C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7E1479627EC1D2F0051653C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7E1479927EC1D2F0051653C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,6 +98,14 @@
 			path = Rswift;
 			sourceTree = "<group>";
 		};
+		E731261C27EC4ECF003E27DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E731261D27EC4F34003E27DC /* WeatherViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E7E1478127EC1D2F0051653C = {
 			isa = PBXGroup;
 			children = (
@@ -123,7 +131,7 @@
 			children = (
 				E7E1478D27EC1D2F0051653C /* AppDelegate.swift */,
 				E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */,
-				E7E1479127EC1D2F0051653C /* ViewController.swift */,
+				E731261C27EC4ECF003E27DC /* View */,
 				E7E1479327EC1D2F0051653C /* Main.storyboard */,
 				E7E1479627EC1D2F0051653C /* Assets.xcassets */,
 				E7E1479827EC1D2F0051653C /* LaunchScreen.storyboard */,
@@ -313,7 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7E1479227EC1D2F0051653C /* ViewController.swift in Sources */,
+				E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */,
 				E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */,
 				E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */,
 				E731261B27EC486A003E27DC /* R.generated.swift in Sources */,
