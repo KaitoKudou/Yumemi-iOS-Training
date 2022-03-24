@@ -11,12 +11,12 @@ protocol WeatherPresenterProtocolInput {
     func didTapReloadButton() -> String
 }
 
-protocol WeatherPresenterProtocolOutput {
+protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather()
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
-    var view: WeatherPresenterProtocolOutput!
+    weak var view: WeatherPresenterProtocolOutput!
     var model: WeatherModelProtocol!
     
     init(view: WeatherPresenterProtocolOutput, model: WeatherModelProtocol) {
