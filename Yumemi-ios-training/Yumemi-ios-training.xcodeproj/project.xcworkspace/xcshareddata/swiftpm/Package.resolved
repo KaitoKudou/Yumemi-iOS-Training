@@ -9,6 +9,15 @@
           "revision": "b2667251bdeb44862a3b0cf6a77a62c08b0ce3ca",
           "version": null
         }
+      },
+      {
+        "package": "R.swift.Library",
+        "repositoryURL": "https://github.com/mac-cain13/R.swift.Library.git",
+        "state": {
+          "branch": "master",
+          "revision": "3a64127e8113cc33179504dfadc91b361d55a0b1",
+          "version": null
+        }
       }
     ]
   },
