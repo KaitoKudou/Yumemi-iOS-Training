@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E731261B27EC486A003E27DC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261A27EC486A003E27DC /* R.generated.swift */; };
 		E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731261D27EC4F34003E27DC /* WeatherViewController.swift */; };
 		E731262127EC537F003E27DC /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262027EC537F003E27DC /* WeatherModel.swift */; };
 		E731262327EC5479003E27DC /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262227EC5479003E27DC /* WeatherResponse.swift */; };
 		E731262727EC5753003E27DC /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262627EC5753003E27DC /* APIError.swift */; };
 		E731262A27EC5B3C003E27DC /* WeatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731262927EC5B3C003E27DC /* WeatherPresenter.swift */; };
+		E731263027ED70D1003E27DC /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = E731262F27ED70D1003E27DC /* Rswift */; };
+		E731263227ED721F003E27DC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731263127ED721F003E27DC /* R.generated.swift */; };
+		E731263427ED7906003E27DC /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731263327ED7906003E27DC /* WeatherType.swift */; };
 		E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478D27EC1D2F0051653C /* AppDelegate.swift */; };
 		E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */; };
 		E7E1479527EC1D2F0051653C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479327EC1D2F0051653C /* Main.storyboard */; };
@@ -22,7 +24,6 @@
 		E7E147AF27EC1D2F0051653C /* Yumemi_ios_trainingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E147AE27EC1D2F0051653C /* Yumemi_ios_trainingUITests.swift */; };
 		E7E147B127EC1D2F0051653C /* Yumemi_ios_trainingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E147B027EC1D2F0051653C /* Yumemi_ios_trainingUITestsLaunchTests.swift */; };
 		E7E147BF27EC1E330051653C /* YumemiWeather in Frameworks */ = {isa = PBXBuildFile; productRef = E7E147BE27EC1E330051653C /* YumemiWeather */; };
-		E7E147C327EC455F0051653C /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = E7E147C227EC455F0051653C /* Rswift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E731261A27EC486A003E27DC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		E731261D27EC4F34003E27DC /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		E731262027EC537F003E27DC /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		E731262227EC5479003E27DC /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		E731262627EC5753003E27DC /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		E731262927EC5B3C003E27DC /* WeatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPresenter.swift; sourceTree = "<group>"; };
+		E731263127ED721F003E27DC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		E731263327ED7906003E27DC /* WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
+		E731263A27ED9888003E27DC /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		E731263C27ED9E7E003E27DC /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		E7E1478A27EC1D2F0051653C /* Yumemi-ios-training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yumemi-ios-training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E1478D27EC1D2F0051653C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7E147BF27EC1E330051653C /* YumemiWeather in Frameworks */,
-				E7E147C327EC455F0051653C /* Rswift in Frameworks */,
+				E731263027ED70D1003E27DC /* Rswift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,22 +94,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E731261827EC486A003E27DC /* GeneratedByTools */ = {
-			isa = PBXGroup;
-			children = (
-				E731261927EC486A003E27DC /* Rswift */,
-			);
-			path = GeneratedByTools;
-			sourceTree = "<group>";
-		};
-		E731261927EC486A003E27DC /* Rswift */ = {
-			isa = PBXGroup;
-			children = (
-				E731261A27EC486A003E27DC /* R.generated.swift */,
-			);
-			path = Rswift;
-			sourceTree = "<group>";
-		};
 		E731261C27EC4ECF003E27DC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +107,7 @@
 			children = (
 				E731262027EC537F003E27DC /* WeatherModel.swift */,
 				E731262227EC5479003E27DC /* WeatherResponse.swift */,
+				E731263327ED7906003E27DC /* WeatherType.swift */,
 				E731262627EC5753003E27DC /* APIError.swift */,
 			);
 			path = Model;
@@ -132,9 +121,20 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		E731263927ED9870003E27DC /* BuildTools */ = {
+			isa = PBXGroup;
+			children = (
+				E731263A27ED9888003E27DC /* Package.swift */,
+				E731263C27ED9E7E003E27DC /* Empty.swift */,
+			);
+			path = BuildTools;
+			sourceTree = "<group>";
+		};
 		E7E1478127EC1D2F0051653C = {
 			isa = PBXGroup;
 			children = (
+				E731263927ED9870003E27DC /* BuildTools */,
+				E731263127ED721F003E27DC /* R.generated.swift */,
 				E7E1478C27EC1D2F0051653C /* Yumemi-ios-training */,
 				E7E147A327EC1D2F0051653C /* Yumemi-ios-trainingTests */,
 				E7E147AD27EC1D2F0051653C /* Yumemi-ios-trainingUITests */,
@@ -164,7 +164,6 @@
 				E7E1479627EC1D2F0051653C /* Assets.xcassets */,
 				E7E1479827EC1D2F0051653C /* LaunchScreen.storyboard */,
 				E7E1479B27EC1D2F0051653C /* Info.plist */,
-				E731261827EC486A003E27DC /* GeneratedByTools */,
 			);
 			path = "Yumemi-ios-training";
 			sourceTree = "<group>";
@@ -205,7 +204,7 @@
 			name = "Yumemi-ios-training";
 			packageProductDependencies = (
 				E7E147BE27EC1E330051653C /* YumemiWeather */,
-				E7E147C227EC455F0051653C /* Rswift */,
+				E731262F27ED70D1003E27DC /* Rswift */,
 			);
 			productName = "Yumemi-ios-training";
 			productReference = E7E1478A27EC1D2F0051653C /* Yumemi-ios-training.app */;
@@ -281,7 +280,7 @@
 			mainGroup = E7E1478127EC1D2F0051653C;
 			packageReferences = (
 				E7E147BD27EC1E330051653C /* XCRemoteSwiftPackageReference "ios-training" */,
-				E7E147C127EC455F0051653C /* XCRemoteSwiftPackageReference "R.swift.Library" */,
+				E731262E27ED70D1003E27DC /* XCRemoteSwiftPackageReference "R.swift.Library" */,
 			);
 			productRefGroup = E7E1478B27EC1D2F0051653C /* Products */;
 			projectDirPath = "";
@@ -324,7 +323,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E7E147C027EC43E30051653C /* Run R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -336,11 +335,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/$(TARGET_NAME)/GeneratedByTools/Rswift/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which rswift >/dev/null; then\nrswift generate \"$SRCROOT/$TARGET_NAME/GeneratedByTools/Rswift/R.generated.swift\"\nelse\necho \"warning: rswift not installed\"\nfi\n";
+			shellScript = "if [ `uname -m` == 'arm64' ] && [ -d /opt/homebrew/bin/ ]; then\n  export PATH=/opt/homebrew/bin:$PATH\nfi\n\ncd BuildTools\nSDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nswift run -c release rswift generate \"$SRCROOT/R.generated.swift\"\n\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -352,10 +351,11 @@
 				E731261E27EC4F34003E27DC /* WeatherViewController.swift in Sources */,
 				E731262A27EC5B3C003E27DC /* WeatherPresenter.swift in Sources */,
 				E731262327EC5479003E27DC /* WeatherResponse.swift in Sources */,
+				E731263227ED721F003E27DC /* R.generated.swift in Sources */,
 				E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */,
 				E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */,
-				E731261B27EC486A003E27DC /* R.generated.swift in Sources */,
 				E731262127EC537F003E27DC /* WeatherModel.swift in Sources */,
+				E731263427ED7906003E27DC /* WeatherType.swift in Sources */,
 				E731262727EC5753003E27DC /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +702,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E731262E27ED70D1003E27DC /* XCRemoteSwiftPackageReference "R.swift.Library" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.Library.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		E7E147BD27EC1E330051653C /* XCRemoteSwiftPackageReference "ios-training" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yumemi-inc/ios-training.git";
@@ -710,26 +718,18 @@
 				kind = branch;
 			};
 		};
-		E7E147C127EC455F0051653C /* XCRemoteSwiftPackageReference "R.swift.Library" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift.Library.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E731262F27ED70D1003E27DC /* Rswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E731262E27ED70D1003E27DC /* XCRemoteSwiftPackageReference "R.swift.Library" */;
+			productName = Rswift;
+		};
 		E7E147BE27EC1E330051653C /* YumemiWeather */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E7E147BD27EC1E330051653C /* XCRemoteSwiftPackageReference "ios-training" */;
 			productName = YumemiWeather;
-		};
-		E7E147C227EC455F0051653C /* Rswift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E7E147C127EC455F0051653C /* XCRemoteSwiftPackageReference "R.swift.Library" */;
-			productName = Rswift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
