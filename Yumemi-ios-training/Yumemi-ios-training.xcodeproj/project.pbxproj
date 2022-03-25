@@ -323,13 +323,13 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E7E147C027EC43E30051653C /* Run R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$TEMP_DIR/rswift-lastrun",
 			);
 			name = "Run R.swift";
 			outputFileListPaths = (
