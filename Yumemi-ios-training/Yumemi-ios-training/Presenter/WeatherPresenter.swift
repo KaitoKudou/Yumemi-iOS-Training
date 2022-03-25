@@ -8,14 +8,15 @@
 import Foundation
 
 protocol WeatherPresenterProtocolInput {
-    func didTapReloadButton() -> String
+    func feachWeather()
 }
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
-    func showWeather()
+    func showWeather(weaherType: WeatherType)
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
+    
     weak var view: WeatherPresenterProtocolOutput!
     var model: WeatherModelProtocol!
     
@@ -24,7 +25,9 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         self.model = model
     }
     
-    func didTapReloadButton() -> String {
-        return model.fetchWeather()
+    func feachWeather() {
+        model.fetchWeather(completion: { [weak self] response in
+            self?.view.showWeather(weaherType: response)
+        })
     }
 }
