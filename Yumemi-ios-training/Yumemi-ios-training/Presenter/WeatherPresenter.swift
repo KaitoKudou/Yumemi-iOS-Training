@@ -17,8 +17,8 @@ protocol WeatherPresenterProtocolOutput: AnyObject {
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
     
-    weak var view: WeatherPresenterProtocolOutput!
-    var model: WeatherModelProtocol!
+    weak var view: WeatherPresenterProtocolOutput?
+    let model: WeatherModelProtocol
     
     init(view: WeatherPresenterProtocolOutput, model: WeatherModelProtocol) {
         self.view = view
@@ -27,7 +27,7 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     
     func feachWeather() {
         model.fetchWeather(completion: { [weak self] response in
-            self?.view.showWeather(weaherType: response)
+            self?.view?.showWeather(weaherType: response)
         })
     }
 }
