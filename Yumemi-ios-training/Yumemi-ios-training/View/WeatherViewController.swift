@@ -24,18 +24,16 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
     func showWeather(weaherType: WeatherType) {
-        switch weaherType.rawValue {
-        case "sunny":
+        switch weaherType {
+        case .sunny:
             weatherImageView.image = R.image.sunny()
             weatherImageView.tintColor = R.color.red()
-        case "cloudy":
+        case .cloudy:
             weatherImageView.image = R.image.cloudy()
             weatherImageView.tintColor = R.color.gray()
-        case "rainy":
+        case .rainy:
             weatherImageView.image = R.image.rainy()
             weatherImageView.tintColor = R.color.blue()
-        default:
-            return
         }
     }
 }
