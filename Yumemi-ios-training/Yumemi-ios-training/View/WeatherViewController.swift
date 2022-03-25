@@ -18,7 +18,13 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
-        switch presenter.didTapReloadButton() {
+        presenter.feachWeather()
+    }
+}
+
+extension WeatherViewController: WeatherPresenterProtocolOutput {
+    func showWeather(weaherType: WeatherType) {
+        switch weaherType.rawValue {
         case "sunny":
             weatherImageView.image = R.image.sunny()
             weatherImageView.tintColor = R.color.red()
@@ -31,11 +37,5 @@ class WeatherViewController: UIViewController {
         default:
             return
         }
-    }
-    
-}
-
-extension WeatherViewController: WeatherPresenterProtocolOutput {
-    func showWeather() {
     }
 }
