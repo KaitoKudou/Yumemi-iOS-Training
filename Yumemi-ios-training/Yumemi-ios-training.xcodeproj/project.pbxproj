@@ -339,7 +339,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ `uname -m` == 'arm64' ] && [ -d /opt/homebrew/bin/ ]; then\n  export PATH=/opt/homebrew/bin:$PATH\nfi\n\ncd BuildTools\nSDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nswift run -c release rswift generate \"$SRCROOT/R.generated.swift\"\n\n\n\n";
+			shellScript = "cd BuildTools\nSDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nswift run -c release rswift generate \"$SRCROOT/R.generated.swift\"\n\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
