@@ -9,11 +9,11 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherModelProtocol {
-    func fetchWeather() -> String
+    func fetchWeather(completion: @escaping (WeatherType) -> Void)
 }
 
 class WeatherModel: WeatherModelProtocol {
-    func fetchWeather() -> String {
-        return YumemiWeather.fetchWeather()
+    func fetchWeather(completion: @escaping (WeatherType) -> Void) {
+        completion(WeatherType(rawValue: YumemiWeather.fetchWeather())!)
     }
 }
