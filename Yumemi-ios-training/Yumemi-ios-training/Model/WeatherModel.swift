@@ -14,6 +14,8 @@ protocol WeatherModelProtocol {
 
 class WeatherModel: WeatherModelProtocol {
     func fetchWeather(completion: @escaping (WeatherType) -> Void) {
+        // YumemiWeather.fetchWeather()は必ず何かしら文字列を返してくるが
+        // Session3以降ではエラーを含むのでオプショナルで扱う
         completion(WeatherType(rawValue: YumemiWeather.fetchWeather())!)
     }
 }
