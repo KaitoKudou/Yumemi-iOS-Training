@@ -11,7 +11,6 @@ class WeatherViewController: UIViewController {
 
     @IBOutlet weak var weatherImageView: UIImageView!
     private var presenter: WeatherPresenterProtocolInput!
-    private var weatherString: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +18,7 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
-        weatherString = presenter.didTapReloadButton()
-        switch weatherString {
+        switch presenter.didTapReloadButton() {
         case "sunny":
             weatherImageView.image = R.image.sunny()
             weatherImageView.tintColor = R.color.red()
