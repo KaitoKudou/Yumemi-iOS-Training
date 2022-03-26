@@ -13,6 +13,7 @@ protocol WeatherPresenterProtocolInput {
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather(weaherType: WeatherType)
+    func showErrorAlert(errorMessage: String)
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
@@ -26,8 +27,16 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     }
     
     func feachWeather() {
-        model.fetchWeather(completion: { [weak self] response in
-            self?.view?.showWeather(weaherType: response)
-        })
+        switch model.feachWeaher() {
+        case .success(let weather):
+            self.view?.showWeather(weaherType: weather)
+        case .failure(let error):
+            switch error {
+            case .invalidParameterError:
+                view?.showErrorAlert(errorMessage: error.errorMessage)
+            case .unknownError:
+                view?.showErrorAlert(errorMessage: error.errorMessage)
+            }
+        }
     }
 }
