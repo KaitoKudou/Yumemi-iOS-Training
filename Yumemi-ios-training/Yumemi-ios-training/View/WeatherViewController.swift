@@ -23,6 +23,10 @@ class WeatherViewController: UIViewController {
 }
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
+    func showErrorAlert(errorMessage: String) {
+        print(errorMessage)
+    }
+    
     func showWeather(weaherType: WeatherType) {
         switch weaherType {
         case .sunny:
