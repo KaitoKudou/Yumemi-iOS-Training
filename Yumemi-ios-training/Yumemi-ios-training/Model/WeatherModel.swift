@@ -9,13 +9,23 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherModelProtocol {
-    func fetchWeather(completion: @escaping (WeatherType) -> Void)
+    func feachWeaher() -> Result<WeatherType, APIError>
 }
 
 class WeatherModel: WeatherModelProtocol {
-    func fetchWeather(completion: @escaping (WeatherType) -> Void) {
-        // YumemiWeather.fetchWeather()は必ず何かしら文字列を返してくるが
-        // Session3以降ではエラーを含むのでオプショナルで扱う
-        completion(WeatherType(rawValue: YumemiWeather.fetchWeather())!)
+    func feachWeaher() -> Result<WeatherType, APIError> {
+        do {
+            let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
+            return .success(WeatherType(rawValue: weatherString)!)
+        } catch let error as YumemiWeatherError {
+            switch error {
+            case .invalidParameterError:
+                return .failure(.invalidParameterError)
+            case .unknownError:
+                return .failure(.unknownError)
+            }
+        } catch {
+            fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
+        }
     }
 }
