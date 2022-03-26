@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIError {
+enum APIError: Error {
     case invalidParameterError
     case unknownError
     
