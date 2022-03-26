@@ -24,7 +24,9 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
     func showErrorAlert(errorMessage: String) {
-        print(errorMessage)
+        let alert = UIAlertController(title: "エラー", message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     func showWeather(weaherType: WeatherType) {
