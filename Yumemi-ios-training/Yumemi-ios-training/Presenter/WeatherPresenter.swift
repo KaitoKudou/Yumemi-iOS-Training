@@ -13,7 +13,7 @@ protocol WeatherPresenterProtocolInput {
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather(weaherType: WeatherType)
-    func showErrorAlert(errorMessage: String)
+    func showErrorAlert(with message: String)
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
@@ -33,9 +33,9 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         case .failure(let error):
             switch error {
             case .invalidParameterError:
-                view?.showErrorAlert(errorMessage: error.errorDescription!)
+                view?.showErrorAlert(with: error.errorDescription!)
             case .unknownError:
-                view?.showErrorAlert(errorMessage: error.errorDescription!)
+                view?.showErrorAlert(with: error.errorDescription!)
             }
         }
     }
