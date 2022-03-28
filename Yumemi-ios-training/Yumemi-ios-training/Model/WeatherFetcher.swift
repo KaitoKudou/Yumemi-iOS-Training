@@ -17,7 +17,7 @@ class WeatherFetcher: WeatherFetchable {
         do {
             let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
             guard let weather = WeatherType(rawValue: weatherString) else {
-                fatalError("天気情報の文字列のinitに失敗")
+                fatalError("WeatherTypeのinitに失敗")
             }
             return .success(weather)
         } catch let error as YumemiWeatherError {
