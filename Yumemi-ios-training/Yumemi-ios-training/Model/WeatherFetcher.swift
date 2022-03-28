@@ -16,7 +16,10 @@ class WeatherFetcher: WeatherFetchable {
     func fechWeaher() -> Result<WeatherType, APIError> {
         do {
             let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
-            return .success(WeatherType(rawValue: weatherString)!)
+            guard let weather = WeatherType(rawValue: weatherString) else {
+                fatalError("天気情報の文字列のinitに失敗")
+            }
+            return .success(weather)
         } catch let error as YumemiWeatherError {
             switch error {
             case .invalidParameterError:
