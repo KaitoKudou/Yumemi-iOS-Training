@@ -33,9 +33,9 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         case .failure(let error):
             switch error {
             case .invalidParameterError:
-                view?.showErrorAlert(errorMessage: error.errorMessage)
+                view?.showErrorAlert(errorMessage: error.errorDescription!)
             case .unknownError:
-                view?.showErrorAlert(errorMessage: error.errorMessage)
+                view?.showErrorAlert(errorMessage: error.errorDescription!)
             }
         }
     }
