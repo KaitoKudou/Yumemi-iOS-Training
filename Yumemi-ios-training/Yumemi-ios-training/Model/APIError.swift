@@ -10,7 +10,9 @@ import Foundation
 enum APIError: Error {
     case invalidParameterError
     case unknownError
-    
+}
+
+extension APIError: LocalizedError {
     var errorMessage: String {
         switch self {
         case .invalidParameterError:
