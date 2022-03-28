@@ -1,0 +1,10 @@
+/* 
+  Message.strings
+  Yumemi-ios-training
+
+  Created by 工藤 海斗 on 2022/03/28.
+  
+*/
+// Alertに表示するエラーメッセージ
+"alertControllerTitle" = "エラー";
+"alertActionTitle" = "OK";

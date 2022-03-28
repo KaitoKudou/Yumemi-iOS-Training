@@ -15,6 +15,7 @@
 		E731263427ED7906003E27DC /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731263327ED7906003E27DC /* WeatherType.swift */; };
 		E7906ED327F1A0CE003AB7EC /* WeatherFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7906ED227F1A0CE003AB7EC /* WeatherFetcher.swift */; };
 		E7906EE827F1B8A9003AB7EC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7906EE727F1B8A9003AB7EC /* R.generated.swift */; };
+		E7906EEA27F1BA58003AB7EC /* Message.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7906EE927F1BA58003AB7EC /* Message.strings */; };
 		E7E1478E27EC1D2F0051653C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478D27EC1D2F0051653C /* AppDelegate.swift */; };
 		E7E1479027EC1D2F0051653C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */; };
 		E7E1479527EC1D2F0051653C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E1479327EC1D2F0051653C /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		E731263C27ED9E7E003E27DC /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		E7906ED227F1A0CE003AB7EC /* WeatherFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFetcher.swift; sourceTree = "<group>"; };
 		E7906EE727F1B8A9003AB7EC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		E7906EE927F1BA58003AB7EC /* Message.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Message.strings; sourceTree = "<group>"; };
 		E7E1478A27EC1D2F0051653C /* Yumemi-ios-training.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yumemi-ios-training.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E1478D27EC1D2F0051653C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,14 @@
 			path = Rswift;
 			sourceTree = "<group>";
 		};
+		E7906EEB27F1BA89003AB7EC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E7906EE927F1BA58003AB7EC /* Message.strings */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		E7E1478127EC1D2F0051653C = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +183,7 @@
 				E7E1478D27EC1D2F0051653C /* AppDelegate.swift */,
 				E7E1478F27EC1D2F0051653C /* SceneDelegate.swift */,
 				E7906EE527F1B8A9003AB7EC /* GeneratedByTools */,
+				E7906EEB27F1BA89003AB7EC /* Resource */,
 				E731261F27EC5367003E27DC /* Model */,
 				E731262827EC5B1C003E27DC /* Presenter */,
 				E731261C27EC4ECF003E27DC /* View */,
@@ -314,6 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7906EEA27F1BA58003AB7EC /* Message.strings in Resources */,
 				E7E1479A27EC1D2F0051653C /* LaunchScreen.storyboard in Resources */,
 				E7E1479727EC1D2F0051653C /* Assets.xcassets in Resources */,
 				E7E1479527EC1D2F0051653C /* Main.storyboard in Resources */,
