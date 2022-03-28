@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WeatherPresenterProtocolInput {
-    func feachWeather()
+    func fetchWeather()
 }
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
@@ -26,8 +26,8 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         self.model = model
     }
     
-    func feachWeather() {
-        switch model.feachWeaher() {
+    func fetchWeather() {
+        switch model.fechWeaher() {
         case .success(let weather):
             self.view?.showWeather(weaherType: weather)
         case .failure(let error):

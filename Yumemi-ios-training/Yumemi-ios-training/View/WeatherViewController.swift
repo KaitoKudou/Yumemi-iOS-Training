@@ -18,7 +18,7 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
-        presenter.feachWeather()
+        presenter.fetchWeather()
     }
 }
 
