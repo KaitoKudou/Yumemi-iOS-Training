@@ -13,7 +13,7 @@ enum APIError: Error {
 }
 
 extension APIError: LocalizedError {
-    var errorMessage: String {
+    var errorDescription: String? {
         switch self {
         case .invalidParameterError:
             return "パラメータが無効"
