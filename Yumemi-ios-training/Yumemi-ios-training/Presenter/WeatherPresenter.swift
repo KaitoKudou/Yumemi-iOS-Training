@@ -19,9 +19,9 @@ protocol WeatherPresenterProtocolOutput: AnyObject {
 class WeatherPresenter: WeatherPresenterProtocolInput {
     
     weak var view: WeatherPresenterProtocolOutput?
-    let model: WeatherModelProtocol
+    let model: WeatherFetchable
     
-    init(view: WeatherPresenterProtocolOutput, model: WeatherModelProtocol) {
+    init(view: WeatherPresenterProtocolOutput, model: WeatherFetchable) {
         self.view = view
         self.model = model
     }

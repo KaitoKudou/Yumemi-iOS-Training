@@ -14,7 +14,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WeatherPresenter(view: self, model: WeatherModel())
+        presenter = WeatherPresenter(view: self, model: WeatherFetcher())
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
