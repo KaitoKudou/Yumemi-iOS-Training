@@ -27,7 +27,7 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     }
     
     func fetchWeather() {
-        switch model.fechWeaher() {
+        switch model.fetchWeaher() {
         case .success(let weather):
             self.view?.showWeather(weaherType: weather)
         case .failure(let error):
