@@ -13,6 +13,7 @@ protocol WeatherPresenterProtocolInput {
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather(weatherResponse: WeatherResponse)
+    func showDate(date: Date)  // 要件には無いが日付を表示するためのDelegateメソッド
     func showErrorAlert(with message: String?)
 }
 
@@ -29,6 +30,8 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     func fetchWeather() {
         switch model.fetchWeaher() {
         case .success(let weather):
+            guard let date = dateFormatter(from: weather.date) else { return }
+            self.view?.showDate(date: date)
             self.view?.showWeather(weatherResponse: weather)
         case .failure(let error):
             switch error {
@@ -40,5 +43,12 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
                 view?.showErrorAlert(with: error.errorDescription)
             }
         }
+    }
+    
+    func dateFormatter(from dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        guard let date = dateFormatter.date(from: dateString) else { return nil }
+        return date
     }
 }

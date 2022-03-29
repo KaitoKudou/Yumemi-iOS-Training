@@ -25,6 +25,9 @@ class WeatherViewController: UIViewController {
 }
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
+    func showDate(date: Date) {
+    }
+    
     func showErrorAlert(with message: String?) {
         let alert = UIAlertController(title: R.string.message.alertControllerTitle(), message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: R.string.message.alertActionTitle(), style: .default))
