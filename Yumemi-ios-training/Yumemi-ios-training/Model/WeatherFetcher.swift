@@ -9,17 +9,15 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherType, APIError>
+    func fetchWeaher() -> Result<WeatherResponse, APIError>
 }
 
 class WeatherFetcher: WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherType, APIError> {
+    func fetchWeaher() -> Result<WeatherResponse, APIError> {
         do {
-            let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
-            guard let weather = WeatherType(rawValue: weatherString) else {
-                fatalError("WeatherTypeのinitに失敗")
-            }
-            return .success(weather)
+            let jsonString = try YumemiWeather.fetchWeather(#"{"area": "tokyo", "date": "2020-04-01T12:00:00+09:00" }"#)
+            let model = try parseJson(with: jsonString)
+            return .success(model)
         } catch let error as YumemiWeatherError {
             switch error {
             case .invalidParameterError:
@@ -30,5 +28,11 @@ class WeatherFetcher: WeatherFetchable {
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
+    }
+    
+    func parseJson(with jsonString: String) throws -> WeatherResponse {
+        guard let data = jsonString.data(using: .utf8) else { throw APIError.jsonParseError }
+        let weaherData = try JSONDecoder().decode(WeatherResponse.self, from: data)
+        return weaherData
     }
 }
