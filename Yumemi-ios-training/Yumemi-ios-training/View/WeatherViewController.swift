@@ -22,6 +22,10 @@ class WeatherViewController: UIViewController {
     @IBAction func reloadWeather(_ sender: Any) {
         presenter.fetchWeather()
     }
+    
+    @IBAction func closeWeatherView(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
