@@ -8,8 +8,9 @@
 import UIKit
 
 class InitialViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        performSegue(withIdentifier: R.segue.initialViewController.toWeatherViewController, sender: nil)
     }
 }
