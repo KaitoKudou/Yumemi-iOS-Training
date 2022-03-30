@@ -32,7 +32,10 @@ class WeatherFetcher: WeatherFetchable {
     
     func parseJson(with jsonString: String) throws -> WeatherResponse {
         guard let data = jsonString.data(using: .utf8) else { throw APIError.jsonParseError }
-        let weaherData = try JSONDecoder().decode(WeatherResponse.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let weaherData = try decoder.decode(WeatherResponse.self, from: data)
         return weaherData
     }
 }
