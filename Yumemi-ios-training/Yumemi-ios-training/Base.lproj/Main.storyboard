@@ -89,6 +89,21 @@
             </objects>
             <point key="canvasLocation" x="34.782608695652179" y="83.705357142857139"/>
         </scene>
+        <!--Initial View Controller-->
+        <scene sceneID="Iw7-X5-kIk">
+            <objects>
+                <viewController id="rCc-Wp-ZsT" customClass="InitialViewController" customModule="Yumemi_ios_training" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1IK-eq-6Bo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Usn-w2-1Fh"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="97L-Fr-M3z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="988" y="77"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="AccentColor">
