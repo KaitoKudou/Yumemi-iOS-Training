@@ -6,12 +6,20 @@
 //
 
 import Foundation
+import YumemiWeather
 
 enum APIError: Error {
     case invalidParameterError
     case unknownError
-    case jsonDecodeError
-    case jsonEncodeError
+    
+    init(error: YumemiWeatherError) {
+        switch error {
+        case .invalidParameterError:
+            self = .invalidParameterError
+        case .unknownError:
+            self = .unknownError
+        }
+    }
 }
 
 extension APIError: LocalizedError {
@@ -21,10 +29,6 @@ extension APIError: LocalizedError {
             return "パラメータが無効"
         case .unknownError:
             return "予期せぬエラーが発生"
-        case .jsonDecodeError:
-            return "JSONのデコードに失敗"
-        case .jsonEncodeError:
-            return "JSONのエンコードに失敗"
         }
     }
 }
