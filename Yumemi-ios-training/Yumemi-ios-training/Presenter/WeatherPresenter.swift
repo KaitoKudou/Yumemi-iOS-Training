@@ -36,7 +36,9 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
                 view?.showErrorAlert(with: error.errorDescription)
             case .unknownError:
                 view?.showErrorAlert(with: error.errorDescription)
-            case .jsonParseError:
+            case .jsonDecodeError:
+                view?.showErrorAlert(with: error.errorDescription)
+            case .jsonEncodeError:
                 view?.showErrorAlert(with: error.errorDescription)
             }
         }
