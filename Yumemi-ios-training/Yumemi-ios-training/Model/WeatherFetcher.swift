@@ -13,14 +13,14 @@ protocol WeatherFetchable {
 }
 
 class WeatherFetcher: WeatherFetchable {
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter
-    }()
-    
     func fetchWeaher() -> Result<WeatherResponse, APIError> {
+        let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            return formatter
+        }()
+        
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .formatted(dateFormatter)
