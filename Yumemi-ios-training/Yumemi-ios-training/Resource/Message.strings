@@ -8,3 +8,7 @@
 // Alertに表示するエラーメッセージ
 "alertControllerTitle" = "エラー";
 "alertActionTitle" = "OK";
+"invalidParameterError" = "パラメータが無効";
+"unknownError" = "予期せぬエラーが発生";
+"jsonDecodeError" = "JSONのデコードに失敗";
+"jsonEncodeError" = "JSONのエンコードに失敗";
