@@ -30,17 +30,12 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         switch model.fetchWeaher() {
         case .success(let weather):
             self.view?.showWeather(weatherResponse: weather)
-        case .failure(let error):
-            switch error {
-            case .invalidParameterError:
-                view?.showErrorAlert(with: error.errorDescription)
-            case .unknownError:
-                view?.showErrorAlert(with: error.errorDescription)
-            case .jsonDecodeError:
-                view?.showErrorAlert(with: error.errorDescription)
-            case .jsonEncodeError:
-                view?.showErrorAlert(with: error.errorDescription)
-            }
+        case .failure(let error as APIError):
+            view?.showErrorAlert(with: error.errorDescription)
+        case .failure(let error as JsonError):
+            view?.showErrorAlert(with: error.errorDescription)
+        default:
+            return
         }
     }
 }
