@@ -9,11 +9,11 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, APIError>
+    func fetchWeaher() -> Result<WeatherResponse, Error>
 }
 
 class WeatherFetcher: WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, APIError> {
+    func fetchWeaher() -> Result<WeatherResponse, Error> {
         let dateFormatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
@@ -22,27 +22,29 @@ class WeatherFetcher: WeatherFetchable {
         }()
         
         do {
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .formatted(dateFormatter)
-            let request = try encoder.encode(WeatherRequest(area: "tokyo", date: Date()))
-            guard let jsonString = String(data: request, encoding: .utf8) else { return .failure(.jsonEncodeError) }
+            let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
-            guard let model = parseJson(with: weatherData) else { return .failure(.jsonDecodeError) }
+            let model = try decodeJson(with: weatherData)
             return .success(model)
         } catch let error as YumemiWeatherError {
-            switch error {
-            case .invalidParameterError:
-                return .failure(.invalidParameterError)
-            case .unknownError:
-                return .failure(.unknownError)
-            }
+            return .failure(APIError(error: error))
+        } catch let error as JsonError {
+            return .failure(JsonError(error: error))
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
     }
     
-    func parseJson(with jsonString: String) -> WeatherResponse? {
-        guard let data = jsonString.data(using: .utf8) else { return nil }
+    func encodeJson(request: WeatherRequest) throws -> String {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let request = try encoder.encode(request)
+        guard let jsonString = String(data: request, encoding: .utf8) else { throw JsonError.jsonEncodeError }
+        return jsonString
+    }
+    
+    func decodeJson(with jsonString: String) throws -> WeatherResponse {
+        guard let data = jsonString.data(using: .utf8) else { throw JsonError.jsonDecodeError }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -50,7 +52,7 @@ class WeatherFetcher: WeatherFetchable {
             let weaherData = try decoder.decode(WeatherResponse.self, from: data)
             return weaherData
         } catch {
-            return nil
+            throw JsonError.jsonDecodeError
         }
     }
 }
