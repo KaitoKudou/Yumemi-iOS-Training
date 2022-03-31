@@ -9,5 +9,5 @@ import Foundation
 
 struct WeatherRequest: Codable {
     let area: String
-    let date: String
+    let date: Date
 }
