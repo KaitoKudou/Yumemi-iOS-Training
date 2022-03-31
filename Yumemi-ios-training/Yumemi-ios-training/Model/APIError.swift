@@ -26,9 +26,9 @@ extension APIError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidParameterError:
-            return "パラメータが無効"
+            return R.string.message.invalidParameterError()
         case .unknownError:
-            return "予期せぬエラーが発生"
+            return R.string.message.unknownError()
         }
     }
 }

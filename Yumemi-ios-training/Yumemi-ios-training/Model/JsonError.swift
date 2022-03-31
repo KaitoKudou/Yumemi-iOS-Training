@@ -25,9 +25,9 @@ extension JsonError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .jsonDecodeError:
-            return "JSONのデコードに失敗"
+            return R.string.message.jsonDecodeError()
         case .jsonEncodeError:
-            return "JSONのエンコードに失敗"
+            return R.string.message.jsonEncodeError()
         }
     }
 }
