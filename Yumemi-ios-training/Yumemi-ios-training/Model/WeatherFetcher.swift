@@ -13,15 +13,18 @@ protocol WeatherFetchable {
 }
 
 class WeatherFetcher: WeatherFetchable {
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
     func fetchWeaher() -> Result<WeatherResponse, APIError> {
-        let today: String = {
-            let isoFormatter = ISO8601DateFormatter()
-            isoFormatter.timeZone = TimeZone.current
-            return isoFormatter.string(from: Date())
-        }()
-        
         do {
-            let request = try JSONEncoder().encode(WeatherRequest(area: "tokyo", date: today))
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .formatted(dateFormatter)
+            let request = try encoder.encode(WeatherRequest(area: "tokyo", date: Date()))
             guard let jsonString = String(data: request, encoding: .utf8) else { return .failure(.jsonEncodeError) }
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
             guard let model = parseJson(with: weatherData) else { return .failure(.jsonDecodeError) }
