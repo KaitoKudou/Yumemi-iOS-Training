@@ -10,7 +10,8 @@ import Foundation
 enum APIError: Error {
     case invalidParameterError
     case unknownError
-    case jsonParseError
+    case jsonDecodeError
+    case jsonEncodeError
 }
 
 extension APIError: LocalizedError {
@@ -20,8 +21,10 @@ extension APIError: LocalizedError {
             return "パラメータが無効"
         case .unknownError:
             return "予期せぬエラーが発生"
-        case .jsonParseError:
-            return "JSONのパースに失敗"
+        case .jsonDecodeError:
+            return "JSONのデコードに失敗"
+        case .jsonEncodeError:
+            return "JSONのエンコードに失敗"
         }
     }
 }
