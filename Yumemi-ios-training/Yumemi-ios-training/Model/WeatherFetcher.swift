@@ -14,9 +14,18 @@ protocol WeatherFetchable {
 
 class WeatherFetcher: WeatherFetchable {
     func fetchWeaher() -> Result<WeatherResponse, APIError> {
+        let today: String = {
+            let isoFormatter = ISO8601DateFormatter()
+            isoFormatter.timeZone = TimeZone.current
+            return isoFormatter.string(from: Date())
+        }()
+        
         do {
-            let jsonString = try YumemiWeather.fetchWeather(#"{"area": "tokyo", "date": "2020-04-01T12:00:00+09:00" }"#)
-            let model = try parseJson(with: jsonString)
+            let request = try JSONEncoder().encode(WeatherRequest(area: "tokyo", date: today))
+            guard let jsonString = String(data: request, encoding: .utf8) else { fatalError("リクエストのエンコードに失敗") }
+            print(jsonString)
+            let weatherData = try YumemiWeather.fetchWeather(jsonString)
+            let model = try parseJson(with: weatherData)
             return .success(model)
         } catch let error as YumemiWeatherError {
             switch error {
