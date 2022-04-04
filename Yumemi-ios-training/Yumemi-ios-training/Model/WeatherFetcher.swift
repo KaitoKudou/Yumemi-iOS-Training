@@ -9,11 +9,11 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, APIError>
+    func fetchWeather() -> Result<WeatherResponse, APIError>
 }
 
 class WeatherFetcher: WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, APIError> {
+    func fetchWeather() -> Result<WeatherResponse, APIError> {
         do {
             let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
