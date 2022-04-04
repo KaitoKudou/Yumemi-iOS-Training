@@ -22,7 +22,7 @@ class WeatherFetcher: WeatherFetchable {
         } catch let error as YumemiWeatherError {
             return .failure(APIError(error: error))
         } catch let error as JsonError {
-            return .failure(JsonError(error: error))
+            return .failure(error)
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
@@ -31,9 +31,13 @@ class WeatherFetcher: WeatherFetchable {
     func encodeJson(request: WeatherRequest) throws -> String {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
-        let request = try encoder.encode(request)
-        guard let jsonString = String(data: request, encoding: .utf8) else { throw JsonError.jsonEncodeError }
-        return jsonString
+        do {
+            let request = try encoder.encode(request)
+            guard let jsonString = String(data: request, encoding: .utf8) else { throw JsonError.jsonEncodeError }
+            return jsonString
+        } catch  {
+            throw JsonError.jsonEncodeError
+        }
     }
     
     func decodeJson(with jsonString: String) throws -> WeatherResponse {
