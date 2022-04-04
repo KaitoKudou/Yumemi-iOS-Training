@@ -21,6 +21,8 @@ class WeatherFetcher: WeatherFetchable {
             return .success(model)
         } catch let error as YumemiWeatherError {
             return .failure(APIError(error: error))
+        } catch let error as APIError {
+            return .failure(error)
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
