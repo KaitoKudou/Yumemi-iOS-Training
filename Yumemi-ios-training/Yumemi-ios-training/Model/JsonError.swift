@@ -10,15 +10,6 @@ import Foundation
 enum JsonError: Error {
     case jsonDecodeError
     case jsonEncodeError
-    
-    init(error: Self) {
-        switch error {
-        case .jsonDecodeError:
-            self = .jsonDecodeError
-        case .jsonEncodeError:
-            self = .jsonEncodeError
-        }
-    }
 }
 
 extension JsonError: LocalizedError {
