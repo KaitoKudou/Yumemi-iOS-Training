@@ -9,11 +9,11 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, Error>
+    func fetchWeaher() -> Result<WeatherResponse, APIError>
 }
 
 class WeatherFetcher: WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherResponse, Error> {
+    func fetchWeaher() -> Result<WeatherResponse, APIError> {
         do {
             let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
@@ -21,8 +21,6 @@ class WeatherFetcher: WeatherFetchable {
             return .success(model)
         } catch let error as YumemiWeatherError {
             return .failure(APIError(error: error))
-        } catch let error as JsonError {
-            return .failure(error)
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
@@ -33,15 +31,15 @@ class WeatherFetcher: WeatherFetchable {
         encoder.dateEncodingStrategy = .iso8601
         do {
             let request = try encoder.encode(request)
-            guard let jsonString = String(data: request, encoding: .utf8) else { throw JsonError.jsonEncodeError }
+            guard let jsonString = String(data: request, encoding: .utf8) else { throw APIError.invalidParameterError }
             return jsonString
         } catch  {
-            throw JsonError.jsonEncodeError
+            throw APIError.invalidParameterError
         }
     }
     
     func decodeJson(with jsonString: String) throws -> WeatherResponse {
-        guard let data = jsonString.data(using: .utf8) else { throw JsonError.jsonDecodeError }
+        guard let data = jsonString.data(using: .utf8) else { throw APIError.unknownError }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -49,7 +47,7 @@ class WeatherFetcher: WeatherFetchable {
             let weaherData = try decoder.decode(WeatherResponse.self, from: data)
             return weaherData
         } catch {
-            throw JsonError.jsonDecodeError
+            throw APIError.unknownError
         }
     }
 }
