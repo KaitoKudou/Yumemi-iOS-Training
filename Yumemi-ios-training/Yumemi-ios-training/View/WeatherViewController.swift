@@ -17,6 +17,7 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = WeatherPresenter(view: self, model: WeatherFetcher())
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     deinit {
@@ -29,6 +30,10 @@ class WeatherViewController: UIViewController {
     
     @IBAction func closeWeatherView(_ sender: Any) {
         dismiss(animated: true)
+    }
+    
+    @objc func viewWillEnterForeground(_ notification: Notification) {
+        presenter.fetchWeather()
     }
 }
 
