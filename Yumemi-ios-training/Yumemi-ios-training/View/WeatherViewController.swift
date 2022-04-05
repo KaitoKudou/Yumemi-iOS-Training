@@ -19,8 +19,16 @@ class WeatherViewController: UIViewController {
         presenter = WeatherPresenter(view: self, model: WeatherFetcher())
     }
     
+    deinit {
+        print("\(type(of: self)): " + #function)
+    }
+    
     @IBAction func reloadWeather(_ sender: Any) {
         presenter.fetchWeather()
+    }
+    
+    @IBAction func closeWeatherView(_ sender: Any) {
+        dismiss(animated: true)
     }
 }
 
