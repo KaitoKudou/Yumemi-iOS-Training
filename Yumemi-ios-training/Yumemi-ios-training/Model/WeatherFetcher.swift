@@ -9,26 +9,47 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherType, APIError>
+    func fetchWeather() -> Result<WeatherResponse, APIError>
 }
 
 class WeatherFetcher: WeatherFetchable {
-    func fetchWeaher() -> Result<WeatherType, APIError> {
+    func fetchWeather() -> Result<WeatherResponse, APIError> {
         do {
-            let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
-            guard let weather = WeatherType(rawValue: weatherString) else {
-                fatalError("WeatherTypeのinitに失敗")
-            }
-            return .success(weather)
+            let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
+            let weatherData = try YumemiWeather.fetchWeather(jsonString)
+            let model = try decodeJson(with: weatherData)
+            return .success(model)
         } catch let error as YumemiWeatherError {
-            switch error {
-            case .invalidParameterError:
-                return .failure(.invalidParameterError)
-            case .unknownError:
-                return .failure(.unknownError)
-            }
+            return .failure(APIError(error: error))
+        } catch let error as APIError {
+            return .failure(error)
         } catch {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
+        }
+    }
+    
+    func encodeJson(request: WeatherRequest) throws -> String {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        do {
+            let request = try encoder.encode(request)
+            guard let jsonString = String(data: request, encoding: .utf8) else { throw APIError.invalidParameterError }
+            return jsonString
+        } catch  {
+            throw APIError.invalidParameterError
+        }
+    }
+    
+    func decodeJson(with jsonString: String) throws -> WeatherResponse {
+        guard let data = jsonString.data(using: .utf8) else { throw APIError.unknownError }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        do {
+            let weaherData = try decoder.decode(WeatherResponse.self, from: data)
+            return weaherData
+        } catch {
+            throw APIError.unknownError
         }
     }
 }

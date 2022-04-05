@@ -10,6 +10,8 @@ import UIKit
 class WeatherViewController: UIViewController {
 
     @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var minTemperatureLabel: UILabel!
+    @IBOutlet weak var maxTemperatureLabel: UILabel!
     private var presenter: WeatherPresenterProtocolInput!
     
     override func viewDidLoad() {
@@ -29,8 +31,8 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
         present(alert, animated: true)
     }
     
-    func showWeather(weaherType: WeatherType) {
-        switch weaherType {
+    func showWeather(weatherResponse: WeatherResponse) {
+        switch weatherResponse.weather {
         case .sunny:
             weatherImageView.image = R.image.sunny()
             weatherImageView.tintColor = R.color.red()
@@ -41,5 +43,7 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
             weatherImageView.image = R.image.rainy()
             weatherImageView.tintColor = R.color.blue()
         }
+        minTemperatureLabel.text = String(weatherResponse.minTemp)
+        maxTemperatureLabel.text = String(weatherResponse.maxTemp)
     }
 }

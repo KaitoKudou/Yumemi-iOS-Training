@@ -11,5 +11,5 @@ struct WeatherResponse: Codable {
     let weather: WeatherType
     let maxTemp: Int
     let minTemp: Int
-    let date: String
+    let date: Date
 }

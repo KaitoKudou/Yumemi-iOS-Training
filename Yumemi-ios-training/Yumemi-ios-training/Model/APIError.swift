@@ -6,19 +6,29 @@
 //
 
 import Foundation
+import YumemiWeather
 
 enum APIError: Error {
     case invalidParameterError
     case unknownError
+    
+    init(error: YumemiWeatherError) {
+        switch error {
+        case .invalidParameterError:
+            self = .invalidParameterError
+        case .unknownError:
+            self = .unknownError
+        }
+    }
 }
 
 extension APIError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidParameterError:
-            return "パラメータが無効"
+            return R.string.message.invalidParameterError()
         case .unknownError:
-            return "予期せぬエラーが発生"
+            return R.string.message.unknownError()
         }
     }
 }
