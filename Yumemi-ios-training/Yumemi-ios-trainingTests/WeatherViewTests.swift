@@ -19,20 +19,14 @@ class WeatherPresenterSpy: WeatherPresenterProtocolOutput {
 }
 
 class WeatherFetcherStub: WeatherFetchable {
-    private var weatherType: WeatherType
-    private var error: APIError?
-    private var temperature: Int
+    private let result: Result<WeatherResponse, APIError>
     
-    init(weatherType: WeatherType, temperature: Int) {
-        self.weatherType = weatherType
-        self.temperature = temperature
+    init(result: Result<WeatherResponse, APIError>) {
+        self.result = result
     }
     
     func fetchWeather() -> Result<WeatherResponse, APIError> {
-        if let error = error {
-            return .failure(error)
-        }
-        return .success(WeatherResponse(weather: weatherType, maxTemp: temperature, minTemp: temperature, date: Date()))
+        return result
     }
 }
 
@@ -51,7 +45,7 @@ class WeatherViewTests: XCTestCase {
     }
     
     func testShowSunnyImageWhenResponseIsSunny() {
-        let stub = WeatherFetcherStub(weatherType: .sunny, temperature: 0)
+        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
         presenter.model = stub
@@ -62,14 +56,13 @@ class WeatherViewTests: XCTestCase {
             viewController?.weatherImageView.image = R.image.sunny()
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
-            return
         case .failure(_):
             return
         }
     }
     
     func testShowCloudyImageWhenResponseIsCloudy() {
-        let stub = WeatherFetcherStub(weatherType: .cloudy, temperature: 0)
+        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
         presenter.model = stub
@@ -80,14 +73,13 @@ class WeatherViewTests: XCTestCase {
             viewController?.weatherImageView.image = R.image.cloudy()
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
-            return
         case .failure(_):
             return
         }
     }
     
     func testShowRainyImageWhenResponseIsRainy() {
-        let stub = WeatherFetcherStub(weatherType: .rainy, temperature: 0)
+        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
         presenter.model = stub
@@ -98,14 +90,13 @@ class WeatherViewTests: XCTestCase {
             viewController?.weatherImageView.image = R.image.rainy()
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
-            return
         case .failure(_):
             return
         }
     }
     
     func testShowTemperatureLabel() {
-        let stub = WeatherFetcherStub(weatherType: .sunny, temperature: 10)
+        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
         presenter.model = stub
@@ -118,10 +109,37 @@ class WeatherViewTests: XCTestCase {
             XCTAssertNotNil(viewController?.maxTemperatureLabel)
             XCTAssertNotNil(viewController?.minTemperatureLabel)
             XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
-            XCTAssertEqual(viewController?.minTemperatureLabel.text, "10")
-            return
+            XCTAssertEqual(viewController?.minTemperatureLabel.text, "5")
         case .failure(_):
             return
+        }
+    }
+    
+    func testResponseUnknownError() {
+        let stub = WeatherFetcherStub(result: .failure(.unknownError))
+        presenter = WeatherPresenter(view: spy, model: stub)
+        presenter.view = spy
+        presenter.model = stub
+        
+        switch stub.fetchWeather() {
+        case .success(_):
+            return
+        case .failure(let error):
+            XCTAssertEqual(error.errorDescription, "予期せぬエラーが発生")
+        }
+    }
+    
+    func testResponseInvalidParameterError() {
+        let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
+        presenter = WeatherPresenter(view: spy, model: stub)
+        presenter.view = spy
+        presenter.model = stub
+        
+        switch stub.fetchWeather() {
+        case .success(_):
+            return
+        case .failure(let error):
+            XCTAssertEqual(error.errorDescription, "パラメータが無効")
         }
     }
 }
