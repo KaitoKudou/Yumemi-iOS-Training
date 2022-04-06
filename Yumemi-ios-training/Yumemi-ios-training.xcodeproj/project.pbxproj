@@ -27,6 +27,7 @@
 		E7E147AF27EC1D2F0051653C /* Yumemi_ios_trainingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E147AE27EC1D2F0051653C /* Yumemi_ios_trainingUITests.swift */; };
 		E7E147B127EC1D2F0051653C /* Yumemi_ios_trainingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E147B027EC1D2F0051653C /* Yumemi_ios_trainingUITestsLaunchTests.swift */; };
 		E7E147BF27EC1E330051653C /* YumemiWeather in Frameworks */ = {isa = PBXBuildFile; productRef = E7E147BE27EC1E330051653C /* YumemiWeather */; };
+		E7ED2B1027FD25F40012FDAF /* WeatherViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED2B0F27FD25F40012FDAF /* WeatherViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		E7E147AA27EC1D2F0051653C /* Yumemi-ios-trainingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Yumemi-ios-trainingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E147AE27EC1D2F0051653C /* Yumemi_ios_trainingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yumemi_ios_trainingUITests.swift; sourceTree = "<group>"; };
 		E7E147B027EC1D2F0051653C /* Yumemi_ios_trainingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yumemi_ios_trainingUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E7ED2B0F27FD25F40012FDAF /* WeatherViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				E7E147A427EC1D2F0051653C /* Yumemi_ios_trainingTests.swift */,
+				E7ED2B0F27FD25F40012FDAF /* WeatherViewTests.swift */,
 			);
 			path = "Yumemi-ios-trainingTests";
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7E147A527EC1D2F0051653C /* Yumemi_ios_trainingTests.swift in Sources */,
+				E7ED2B1027FD25F40012FDAF /* WeatherViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
