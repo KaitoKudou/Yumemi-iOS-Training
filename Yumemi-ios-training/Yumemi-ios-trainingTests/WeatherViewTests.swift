@@ -9,29 +9,77 @@ import XCTest
 @testable import Yumemi_ios_training
 
 
+class WeatherPresenterSpy: WeatherPresenterProtocolOutput {
+    private(set) var weatherType: WeatherType!
+    private let viewController = R.storyboard.main.weatherViewController()
+    func showWeather(weatherResponse: WeatherResponse) {
+        _ = viewController?.view
+        switch weatherResponse.weather {
+        case .sunny:
+            weatherType = .sunny
+            viewController?.weatherImageView.image = R.image.sunny()
+            XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
+        case .cloudy:
+            weatherType = .cloudy
+        case .rainy:
+            weatherType = .rainy
+        }
+    }
+    
+    func showErrorAlert(with message: String?) {
+    }
+}
+
+class WeatherFetcherStub: WeatherFetchable {
+    private var weatherType: WeatherType!
+    private var error: APIError?
+    
+    init(weatherType: WeatherType) {
+        self.weatherType = weatherType
+    }
+    
+    func fetchWeather() -> Result<WeatherResponse, APIError> {
+        if let error = error {
+            return .failure(error)
+        }
+        return .success(WeatherResponse(weather: weatherType, maxTemp: 0, minTemp: 0, date: Date()))
+    }
+}
+
 class WeatherViewTests: XCTestCase {
 
+    var spy: WeatherPresenterSpy!
+    var presenter: WeatherPresenter!
+    var viewController: WeatherViewController!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        spy = WeatherPresenterSpy()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testResponseIsSunny() {
+        let stub = WeatherFetcherStub(weatherType: .sunny)
+        presenter = WeatherPresenter(view: spy, model: stub)
+        presenter.view = spy
+        presenter.model = stub
+        
+        switch stub.fetchWeather() {
+        case .success(let weather):
+            spy.showWeather(weatherResponse: weather)
+            return
+        case .failure(_):
+            return
         }
+    }
+    
+    func testResponseIsCloudy() {
+        
+    }
+    
+    func testResponseIsRainy() {
+        
     }
 
 }
