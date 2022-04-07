@@ -12,11 +12,17 @@ protocol WeatherFetchable {
     func fetchWeather() -> Result<WeatherResponse, APIError>
 }
 
+protocol JsonParseable {
+    func encodeJson(request: WeatherRequest) throws -> String
+    func decodeJson(with jsonString: String) throws -> WeatherResponse
+}
+
 class WeatherFetcher: WeatherFetchable {
     func fetchWeather() -> Result<WeatherResponse, APIError> {
         do {
             let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
+            print(weatherData)
             let model = try decodeJson(with: weatherData)
             return .success(model)
         } catch let error as YumemiWeatherError {
@@ -27,7 +33,9 @@ class WeatherFetcher: WeatherFetchable {
             fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
         }
     }
-    
+}
+
+extension WeatherFetcher: JsonParseable {
     func encodeJson(request: WeatherRequest) throws -> String {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
