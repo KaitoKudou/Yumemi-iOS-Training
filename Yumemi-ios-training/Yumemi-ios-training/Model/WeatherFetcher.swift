@@ -22,7 +22,6 @@ class WeatherFetcher: WeatherFetchable {
         do {
             let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
             let weatherData = try YumemiWeather.fetchWeather(jsonString)
-            print(weatherData)
             let model = try decodeJson(with: weatherData)
             return .success(model)
         } catch let error as YumemiWeatherError {
