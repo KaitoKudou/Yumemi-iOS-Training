@@ -10,7 +10,6 @@ import XCTest
 
 
 class WeatherPresenterSpy: WeatherPresenterProtocolOutput {
-    private let viewController = R.storyboard.main.weatherViewController()
     func showWeather(weatherResponse: WeatherResponse) {
     }
     
