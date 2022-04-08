@@ -62,10 +62,10 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
     }
     
     func startIndicatorAnimating() {
-        self.activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating()
     }
     
     func stopIndicatorAnimating() {
-        self.activityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
     }
 }
