@@ -12,6 +12,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var maxTemperatureLabel: UILabel!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     private var presenter: WeatherPresenterProtocolInput!
     
     override func viewDidLoad() {
