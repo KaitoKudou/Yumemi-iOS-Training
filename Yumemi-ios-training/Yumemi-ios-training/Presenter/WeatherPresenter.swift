@@ -14,6 +14,8 @@ protocol WeatherPresenterProtocolInput {
 protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather(weatherResponse: WeatherResponse)
     func showErrorAlert(with message: String?)
+    func startIndicatorAnimating()
+    func stopIndicatorAnimating()
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
@@ -27,11 +29,16 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     }
     
     func fetchWeather() {
-        switch model.fetchWeather() {
-        case .success(let weather):
-            self.view?.showWeather(weatherResponse: weather)
-        case .failure(let error):
-            view?.showErrorAlert(with: error.errorDescription)
+        view?.startIndicatorAnimating()
+        DispatchQueue.main.async {
+            switch self.model.fetchWeather() {
+            case .success(let weather):
+                self.view?.showWeather(weatherResponse: weather)
+                self.view?.stopIndicatorAnimating()
+            case .failure(let error):
+                self.view?.showErrorAlert(with: error.errorDescription)
+                self.view?.stopIndicatorAnimating()
+            }
         }
     }
 }
