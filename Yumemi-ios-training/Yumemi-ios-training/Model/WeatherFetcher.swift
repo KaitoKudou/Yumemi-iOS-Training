@@ -13,43 +13,27 @@ protocol WeatherFetchable {
 }
 
 class WeatherFetcher: WeatherFetchable {
+    let jsonEncoder: JSONEncoder
+    let jsonDecoder: JSONDecoder
+    
+    init() {
+        jsonEncoder = JSONEncoder()
+        jsonDecoder = JSONDecoder()
+        jsonEncoder.dateEncodingStrategy = .iso8601
+        jsonDecoder.dateDecodingStrategy = .iso8601
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    }
+    
     func fetchWeather() -> Result<WeatherResponse, APIError> {
         do {
-            let jsonString = try encodeJson(request: WeatherRequest(area: "tokyo", date: Date()))
-            let weatherData = try YumemiWeather.fetchWeather(jsonString)
-            let model = try decodeJson(with: weatherData)
-            return .success(model)
+            let jsonData = try jsonEncoder.encode(WeatherRequest(area: "tokyo", date: Date()))
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return .failure(APIError.invalidParameterError) }
+            let weatherJSONString = try YumemiWeather.fetchWeather(jsonString)
+            return .success(try jsonDecoder.decode(WeatherResponse.self, from: Data(weatherJSONString.utf8)))
         } catch let error as YumemiWeatherError {
             return .failure(APIError(error: error))
-        } catch let error as APIError {
-            return .failure(error)
         } catch {
-            fatalError("天気情報取得時に予期せぬエラーが発生：\(error.localizedDescription)")
-        }
-    }
-    
-    func encodeJson(request: WeatherRequest) throws -> String {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        do {
-            let request = try encoder.encode(request)
-            guard let jsonString = String(data: request, encoding: .utf8) else { throw APIError.invalidParameterError }
-            return jsonString
-        } catch  {
-            throw APIError.invalidParameterError
-        }
-    }
-    
-    func decodeJson(with jsonString: String) throws -> WeatherResponse {
-        guard let data = jsonString.data(using: .utf8) else { throw APIError.unknownError }
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            let weaherData = try decoder.decode(WeatherResponse.self, from: data)
-            return weaherData
-        } catch {
-            throw APIError.unknownError
+            return .failure(APIError.unknownError)
         }
     }
 }
