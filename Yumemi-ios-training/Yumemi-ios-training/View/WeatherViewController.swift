@@ -13,7 +13,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var maxTemperatureLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
     private var presenter: WeatherPresenterProtocolInput!
     
     override func viewDidLoad() {
@@ -60,5 +59,13 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
         }
         minTemperatureLabel.text = String(weatherResponse.minTemp)
         maxTemperatureLabel.text = String(weatherResponse.maxTemp)
+    }
+    
+    func startIndicatorAnimating() {
+        self.activityIndicatorView.startAnimating()
+    }
+    
+    func stopIndicatorAnimating() {
+        self.activityIndicatorView.stopAnimating()
     }
 }
