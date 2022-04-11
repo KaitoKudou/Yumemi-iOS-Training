@@ -28,7 +28,7 @@ class WeatherFetcher: WeatherFetchable {
         do {
             let jsonData = try jsonEncoder.encode(WeatherRequest(area: "tokyo", date: Date()))
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return .failure(APIError.invalidParameterError) }
-            let weatherJSONString = try YumemiWeather.fetchWeather(jsonString)
+            let weatherJSONString = try YumemiWeather.syncFetchWeather(jsonString)
             return .success(try jsonDecoder.decode(WeatherResponse.self, from: Data(weatherJSONString.utf8)))
         } catch let error as YumemiWeatherError {
             return .failure(APIError(error: error))

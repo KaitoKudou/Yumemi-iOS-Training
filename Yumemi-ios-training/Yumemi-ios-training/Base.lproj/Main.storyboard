@@ -70,6 +70,9 @@
                                     <constraint firstItem="VWJ-84-Xg9" firstAttribute="width" secondItem="ibo-I1-Wkl" secondAttribute="width" multiplier="0.5" id="Ywe-ny-jsE"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="NBX-sL-Hau">
+                                <rect key="frame" x="0.0" y="562" width="414" height="80"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -79,12 +82,19 @@
                             <constraint firstItem="JWZ-nd-Ek9" firstAttribute="centerX" secondItem="owy-KY-Pfd" secondAttribute="centerX" id="KD6-qT-QIF"/>
                             <constraint firstItem="mC8-cS-fDC" firstAttribute="top" secondItem="ZSu-L7-rHj" secondAttribute="bottom" constant="80" id="PbX-Bo-KTA"/>
                             <constraint firstItem="ibo-I1-Wkl" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="StQ-wr-cJn"/>
+                            <constraint firstItem="mC8-cS-fDC" firstAttribute="top" secondItem="NBX-sL-Hau" secondAttribute="bottom" id="VYd-4S-x4U"/>
                             <constraint firstItem="ZSu-L7-rHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YyQ-qu-L4b"/>
+                            <constraint firstItem="NBX-sL-Hau" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ac8-aW-hQ4"/>
+                            <constraint firstItem="NBX-sL-Hau" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="n60-ML-tTc"/>
+                            <constraint firstItem="NBX-sL-Hau" firstAttribute="top" secondItem="ZSu-L7-rHj" secondAttribute="bottom" id="xJC-XS-OFY"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="NBX-sL-Hau" id="lN5-Vo-a6S"/>
+                        <outlet property="closeButton" destination="7Xx-2x-3FB" id="acF-fe-lXu"/>
                         <outlet property="maxTemperatureLabel" destination="owy-KY-Pfd" id="rLK-Ia-1rD"/>
                         <outlet property="minTemperatureLabel" destination="VWJ-84-Xg9" id="neE-EK-b0J"/>
+                        <outlet property="reloadButton" destination="JWZ-nd-Ek9" id="bAh-x0-6iE"/>
                         <outlet property="weatherImageView" destination="ibo-I1-Wkl" id="FiM-wg-JaF"/>
                     </connections>
                 </viewController>

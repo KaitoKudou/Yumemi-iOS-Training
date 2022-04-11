@@ -12,6 +12,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var maxTemperatureLabel: UILabel!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var reloadButton: UIButton!
     private var presenter: WeatherPresenterProtocolInput!
     
     override func viewDidLoad() {
@@ -52,11 +55,24 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
         case .cloudy:
             weatherImageView.image = R.image.cloudy()
             weatherImageView.tintColor = R.color.gray()
+            
         case .rainy:
             weatherImageView.image = R.image.rainy()
             weatherImageView.tintColor = R.color.blue()
         }
         minTemperatureLabel.text = String(weatherResponse.minTemp)
         maxTemperatureLabel.text = String(weatherResponse.maxTemp)
+    }
+    
+    func startIndicatorAnimating() {
+        activityIndicatorView.startAnimating()
+        closeButton.isEnabled = false
+        reloadButton.isEnabled = false
+    }
+    
+    func stopIndicatorAnimating() {
+        activityIndicatorView.stopAnimating()
+        closeButton.isEnabled = true
+        reloadButton.isEnabled = true
     }
 }

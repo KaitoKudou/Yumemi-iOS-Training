@@ -8,12 +8,17 @@
 import XCTest
 @testable import Yumemi_ios_training
 
-
 class WeatherPresenterSpy: WeatherPresenterProtocolOutput {
     func showWeather(weatherResponse: WeatherResponse) {
     }
     
     func showErrorAlert(with message: String?) {
+    }
+    
+    func startIndicatorAnimating() {
+    }
+    
+    func stopIndicatorAnimating() {
     }
 }
 
@@ -47,7 +52,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(let weather):
@@ -64,7 +68,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(let weather):
@@ -81,7 +84,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(let weather):
@@ -98,7 +100,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date())))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(let weather):
@@ -118,7 +119,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .failure(.unknownError))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(_):
@@ -132,7 +132,6 @@ class WeatherViewTests: XCTestCase {
         let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
         presenter = WeatherPresenter(view: spy, model: stub)
         presenter.view = spy
-        presenter.model = stub
         
         switch stub.fetchWeather() {
         case .success(_):
