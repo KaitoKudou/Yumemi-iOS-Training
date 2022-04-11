@@ -13,6 +13,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var maxTemperatureLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var reloadButton: UIButton!
     private var presenter: WeatherPresenterProtocolInput!
     
     override func viewDidLoad() {
@@ -63,9 +65,13 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
     
     func startIndicatorAnimating() {
         activityIndicatorView.startAnimating()
+        closeButton.isEnabled = false
+        reloadButton.isEnabled = false
     }
     
     func stopIndicatorAnimating() {
         activityIndicatorView.stopAnimating()
+        closeButton.isEnabled = true
+        reloadButton.isEnabled = true
     }
 }
