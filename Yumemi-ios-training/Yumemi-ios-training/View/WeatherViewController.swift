@@ -19,7 +19,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WeatherPresenter(view: self, model: WeatherFetcher())
+        presenter = WeatherPresenter(view: self)
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     

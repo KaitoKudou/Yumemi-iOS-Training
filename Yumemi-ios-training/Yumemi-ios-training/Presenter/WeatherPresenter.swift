@@ -23,9 +23,9 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     weak var view: WeatherPresenterProtocolOutput?
     let model: WeatherFetchable
     
-    init(view: WeatherPresenterProtocolOutput, model: WeatherFetchable) {
+    init(view: WeatherPresenterProtocolOutput) {
         self.view = view
-        self.model = model
+        self.model = WeatherFetcher()
     }
     
     func fetchWeather() {
