@@ -29,8 +29,8 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     }
     
     func fetchWeather() {
-        view?.startIndicatorAnimating()
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
+            self.view?.startIndicatorAnimating()
             defer { self.view?.stopIndicatorAnimating() }
             switch self.model.fetchWeather() {
             case .success(let weather):
