@@ -42,36 +42,50 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: WeatherPresenterProtocolOutput {
     func showErrorAlert(with message: String?) {
-        let alert = UIAlertController(title: R.string.message.alertControllerTitle(), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: R.string.message.alertActionTitle(), style: .default))
-        present(alert, animated: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: R.string.message.alertControllerTitle(), message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: R.string.message.alertActionTitle(), style: .default))
+            self.present(alert, animated: true)
+        }
     }
     
     func showWeather(weatherResponse: WeatherResponse) {
         switch weatherResponse.weather {
         case .sunny:
-            weatherImageView.image = R.image.sunny()
-            weatherImageView.tintColor = R.color.red()
+            DispatchQueue.main.async {
+                self.weatherImageView.image = R.image.sunny()
+                self.weatherImageView.tintColor = R.color.red()
+            }
         case .cloudy:
-            weatherImageView.image = R.image.cloudy()
-            weatherImageView.tintColor = R.color.gray()
+            DispatchQueue.main.async {
+                self.weatherImageView.image = R.image.cloudy()
+                self.weatherImageView.tintColor = R.color.gray()
+            }
         case .rainy:
-            weatherImageView.image = R.image.rainy()
-            weatherImageView.tintColor = R.color.blue()
+            DispatchQueue.main.async {
+                self.weatherImageView.image = R.image.rainy()
+                self.weatherImageView.tintColor = R.color.blue()
+            }
         }
-        minTemperatureLabel.text = String(weatherResponse.minTemp)
-        maxTemperatureLabel.text = String(weatherResponse.maxTemp)
+        DispatchQueue.main.async {
+            self.minTemperatureLabel.text = String(weatherResponse.minTemp)
+            self.maxTemperatureLabel.text = String(weatherResponse.maxTemp)
+        }
     }
     
     func startIndicatorAnimating() {
-        activityIndicatorView.startAnimating()
-        closeButton.isEnabled = false
-        reloadButton.isEnabled = false
+        DispatchQueue.main.async {
+            self.activityIndicatorView.startAnimating()
+            self.closeButton.isEnabled = false
+            self.reloadButton.isEnabled = false
+        }
     }
     
     func stopIndicatorAnimating() {
-        activityIndicatorView.stopAnimating()
-        closeButton.isEnabled = true
-        reloadButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.activityIndicatorView.stopAnimating()
+            self.closeButton.isEnabled = true
+            self.reloadButton.isEnabled = true
+        }
     }
 }
