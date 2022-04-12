@@ -29,23 +29,25 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     }
     
     func fetchWeather() {
-        delegate?.startIndicatorAnimating()
+        self.delegate?.startIndicatorAnimating()
         DispatchQueue.global().async {
             defer {
                 DispatchQueue.main.async {
                     self.delegate?.stopIndicatorAnimating()
                 }
             }
-            switch self.model.fetchWeather() {
-            case .success(let weather):
-                DispatchQueue.main.async {
-                    self.delegate?.showWeather(weatherResponse: weather)
+            self.model.fetchWeather(completion: { [weak self] result in
+                switch result {
+                case .success(let weather):
+                    DispatchQueue.main.async {
+                        self?.delegate?.showWeather(weatherResponse: weather)
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.delegate?.showErrorAlert(with: error.errorDescription)
+                    }
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.delegate?.showErrorAlert(with: error.errorDescription)
-                }
-            }
+            })
         }
     }
 }
