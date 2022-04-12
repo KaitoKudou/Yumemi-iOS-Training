@@ -48,58 +48,35 @@ class WeatherViewTests: XCTestCase {
     override func tearDownWithError() throws {
     }
     
+    func testCallFetchWeather() {
+        viewController?.reloadButton.sendActions(for: .touchUpInside)
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, true) // インジケータが表示されるとpresenter.fetchWeather()が呼ばれていることがわかる
+    }
+    
     func testShowSunnyImageWhenResponseIsSunny() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())))
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            viewController?.showWeather(weatherResponse: weather)
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
     }
     
     func testShowCloudyImageWhenResponseIsCloudy() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())))
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            viewController?.showWeather(weatherResponse: weather)
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
     }
     
     func testShowRainyImageWhenResponseIsRainy() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())))
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            viewController?.showWeather(weatherResponse: weather)
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
     }
     
     func testShowTemperatureLabel() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date())))
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            viewController?.showWeather(weatherResponse: weather)
-            XCTAssertNotNil(viewController?.maxTemperatureLabel)
-            XCTAssertNotNil(viewController?.minTemperatureLabel)
-            XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
-            XCTAssertEqual(viewController?.minTemperatureLabel.text, "5")
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date()))
+        XCTAssertNotNil(viewController?.maxTemperatureLabel)
+        XCTAssertNotNil(viewController?.minTemperatureLabel)
+        XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
+        XCTAssertEqual(viewController?.minTemperatureLabel.text, "5")
     }
     
     func testResponseUnknownError() {
