@@ -50,13 +50,10 @@ class WeatherViewTests: XCTestCase {
     
     func testShowSunnyImageWhenResponseIsSunny() {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.sunny()
+            viewController?.showWeather(weatherResponse: weather)
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
         case .failure(_):
@@ -66,13 +63,10 @@ class WeatherViewTests: XCTestCase {
     
     func testShowCloudyImageWhenResponseIsCloudy() {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.cloudy()
+            viewController?.showWeather(weatherResponse: weather)
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
         case .failure(_):
@@ -82,13 +76,10 @@ class WeatherViewTests: XCTestCase {
     
     func testShowRainyImageWhenResponseIsRainy() {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.rainy()
+            viewController?.showWeather(weatherResponse: weather)
             XCTAssertNotNil(viewController?.weatherImageView)
             XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
         case .failure(_):
@@ -98,14 +89,10 @@ class WeatherViewTests: XCTestCase {
     
     func testShowTemperatureLabel() {
         let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date())))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.maxTemperatureLabel.text = String(weather.maxTemp)
-            viewController?.minTemperatureLabel.text = String(weather.minTemp)
+            viewController?.showWeather(weatherResponse: weather)
             XCTAssertNotNil(viewController?.maxTemperatureLabel)
             XCTAssertNotNil(viewController?.minTemperatureLabel)
             XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
@@ -117,27 +104,23 @@ class WeatherViewTests: XCTestCase {
     
     func testResponseUnknownError() {
         let stub = WeatherFetcherStub(result: .failure(.unknownError))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(_):
             return
         case .failure(let error):
-            XCTAssertEqual(error.errorDescription, "予期せぬエラーが発生")
+            XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
         }
     }
     
     func testResponseInvalidParameterError() {
         let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
-        presenter = WeatherPresenter(view: spy)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(_):
             return
         case .failure(let error):
-            XCTAssertEqual(error.errorDescription, "パラメータが無効")
+            XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
         }
     }
 }
