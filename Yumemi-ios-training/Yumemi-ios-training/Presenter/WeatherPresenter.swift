@@ -9,6 +9,7 @@ import Foundation
 
 protocol WeatherPresenterProtocolInput {
     func fetchWeather()
+    var delegate: WeatherPresenterProtocolOutput? { get set }
 }
 
 protocol WeatherPresenterProtocolOutput: AnyObject {
@@ -20,30 +21,29 @@ protocol WeatherPresenterProtocolOutput: AnyObject {
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
     
-    weak var view: WeatherPresenterProtocolOutput?
+    weak var delegate: WeatherPresenterProtocolOutput?
     let model: WeatherFetchable
     
-    init(view: WeatherPresenterProtocolOutput) {
-        self.view = view
+    init() {
         self.model = WeatherFetcher()
     }
     
     func fetchWeather() {
-        view?.startIndicatorAnimating()
+        delegate?.startIndicatorAnimating()
         DispatchQueue.global().async {
             defer {
                 DispatchQueue.main.async {
-                    self.view?.stopIndicatorAnimating()
+                    self.delegate?.stopIndicatorAnimating()
                 }
             }
             switch self.model.fetchWeather() {
             case .success(let weather):
                 DispatchQueue.main.async {
-                    self.view?.showWeather(weatherResponse: weather)
+                    self.delegate?.showWeather(weatherResponse: weather)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.view?.showErrorAlert(with: error.errorDescription)
+                    self.delegate?.showErrorAlert(with: error.errorDescription)
                 }
             }
         }
