@@ -41,103 +41,85 @@ class WeatherViewTests: XCTestCase {
     private let viewController = R.storyboard.main.weatherViewController()
     
     override func setUpWithError() throws {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScenes = scenes.first as? UIWindowScene
+        windowScenes?.keyWindow?.rootViewController = viewController
         spy = WeatherPresenterSpy()
-        _ = viewController?.view
     }
 
     override func tearDownWithError() throws {
     }
     
+    func testCallFetchWeather() {
+        viewController?.reloadButton.sendActions(for: .touchUpInside)
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, true) // インジケータが表示されるとpresenter.fetchWeather()が呼ばれていることがわかる
+    }
+    
+    func testShowInvalidParameterErrorAlert() {
+        viewController?.showErrorAlert(with: R.string.message.invalidParameterError())
+        XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
+        XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
+        XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.invalidParameterError())
+    }
+    
+    func testShowUnknownErrorAlert() {
+        viewController?.showErrorAlert(with: R.string.message.unknownError())
+        XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
+        XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
+        XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.unknownError())
+    }
+    
     func testShowSunnyImageWhenResponseIsSunny() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.sunny()
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
     func testShowCloudyImageWhenResponseIsCloudy() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.cloudy()
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
     func testShowRainyImageWhenResponseIsRainy() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.weatherImageView.image = R.image.rainy()
-            XCTAssertNotNil(viewController?.weatherImageView)
-            XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date()))
+        XCTAssertNotNil(viewController?.weatherImageView)
+        XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
     func testShowTemperatureLabel() {
-        let stub = WeatherFetcherStub(result: .success(WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date())))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
-        
-        switch stub.fetchWeather() {
-        case .success(let weather):
-            spy.showWeather(weatherResponse: weather)
-            viewController?.maxTemperatureLabel.text = String(weather.maxTemp)
-            viewController?.minTemperatureLabel.text = String(weather.minTemp)
-            XCTAssertNotNil(viewController?.maxTemperatureLabel)
-            XCTAssertNotNil(viewController?.minTemperatureLabel)
-            XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
-            XCTAssertEqual(viewController?.minTemperatureLabel.text, "5")
-        case .failure(_):
-            return
-        }
+        viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date()))
+        XCTAssertNotNil(viewController?.maxTemperatureLabel)
+        XCTAssertNotNil(viewController?.minTemperatureLabel)
+        XCTAssertEqual(viewController?.maxTemperatureLabel.text, "10")
+        XCTAssertEqual(viewController?.minTemperatureLabel.text, "5")
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
     func testResponseUnknownError() {
         let stub = WeatherFetcherStub(result: .failure(.unknownError))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(_):
             return
         case .failure(let error):
-            XCTAssertEqual(error.errorDescription, "予期せぬエラーが発生")
+            XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
         }
     }
     
     func testResponseInvalidParameterError() {
         let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
-        presenter = WeatherPresenter(view: spy, model: stub)
-        presenter.view = spy
         
         switch stub.fetchWeather() {
         case .success(_):
             return
         case .failure(let error):
-            XCTAssertEqual(error.errorDescription, "パラメータが無効")
+            XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
         }
     }
 }

@@ -25,7 +25,7 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     
     init(view: WeatherPresenterProtocolOutput, model: WeatherFetchable) {
         self.view = view
-        self.model = model
+        self.model = WeatherFetcher()
     }
     
     func fetchWeather() {
