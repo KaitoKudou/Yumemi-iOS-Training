@@ -55,11 +55,20 @@ class WeatherViewTests: XCTestCase {
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, true) // インジケータが表示されるとpresenter.fetchWeather()が呼ばれていることがわかる
     }
     
-    func testShowErrorAlert() {
+    func testShowInvalidParameterErrorAlert() {
         viewController?.showErrorAlert(with: R.string.message.invalidParameterError())
         XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
         XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
+        XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.invalidParameterError())
+    }
+    
+    func testShowUnknownErrorAlert() {
+        viewController?.showErrorAlert(with: R.string.message.unknownError())
+        XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
+        XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
+        XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
+        XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.unknownError())
     }
     
     func testShowSunnyImageWhenResponseIsSunny() {
