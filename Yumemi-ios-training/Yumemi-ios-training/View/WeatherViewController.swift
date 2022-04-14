@@ -55,7 +55,6 @@ extension WeatherViewController: WeatherPresenterProtocolOutput {
         case .cloudy:
             weatherImageView.image = R.image.cloudy()
             weatherImageView.tintColor = R.color.gray()
-            
         case .rainy:
             weatherImageView.image = R.image.rainy()
             weatherImageView.tintColor = R.color.blue()
