@@ -29,8 +29,8 @@ class WeatherFetcherStub: WeatherFetchable {
         self.result = result
     }
     
-    func fetchWeather() -> Result<WeatherResponse, APIError> {
-        return result
+    func fetchWeather(completion: @escaping (Result<WeatherResponse, APIError>) -> Void) {
+        completion(result)
     }
 }
 
@@ -103,23 +103,25 @@ class WeatherViewTests: XCTestCase {
     
     func testResponseUnknownError() {
         let stub = WeatherFetcherStub(result: .failure(.unknownError))
-        
-        switch stub.fetchWeather() {
-        case .success(_):
-            return
-        case .failure(let error):
-            XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
-        }
+        stub.fetchWeather(completion: { result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
+            }
+        })
     }
     
     func testResponseInvalidParameterError() {
         let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
-        
-        switch stub.fetchWeather() {
-        case .success(_):
-            return
-        case .failure(let error):
-            XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
-        }
+        stub.fetchWeather(completion: { result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
+            }
+        })
     }
 }
