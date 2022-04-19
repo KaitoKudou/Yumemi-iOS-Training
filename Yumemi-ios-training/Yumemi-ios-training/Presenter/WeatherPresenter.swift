@@ -36,7 +36,7 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
                     self.view?.stopIndicatorAnimating()
                 }
             }
-            self.model.fetchWeather(completion: { [weak self] result in
+            self.model.fetchWeather { [weak self] result in
                 switch result {
                 case .success(let weather):
                     DispatchQueue.main.async {
@@ -47,7 +47,7 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
                         self?.view?.showErrorAlert(with: error.errorDescription)
                     }
                 }
-            })
+            }
         }
     }
 }
