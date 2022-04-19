@@ -8,43 +8,16 @@
 import XCTest
 @testable import Yumemi_ios_training
 
-class WeatherPresenterSpy: WeatherPresenterProtocolOutput {
-    func showWeather(weatherResponse: WeatherResponse) {
-    }
-    
-    func showErrorAlert(with message: String?) {
-    }
-    
-    func startIndicatorAnimating() {
-    }
-    
-    func stopIndicatorAnimating() {
-    }
-}
-
-class WeatherFetcherStub: WeatherFetchable {
-    private let result: Result<WeatherResponse, APIError>
-    
-    init(result: Result<WeatherResponse, APIError>) {
-        self.result = result
-    }
-    
-    func fetchWeather(completion: @escaping (Result<WeatherResponse, APIError>) -> Void) {
-        completion(result)
-    }
-}
-
 class WeatherViewTests: XCTestCase {
 
-    var spy: WeatherPresenterSpy!
-    var presenter: WeatherPresenter!
+    var model: WeatherFetcher!
     private let viewController = R.storyboard.main.weatherViewController()
     
     override func setUpWithError() throws {
         let scenes = UIApplication.shared.connectedScenes
         let windowScenes = scenes.first as? UIWindowScene
         windowScenes?.keyWindow?.rootViewController = viewController
-        spy = WeatherPresenterSpy()
+        model = WeatherFetcher()
     }
 
     override func tearDownWithError() throws {
@@ -102,26 +75,30 @@ class WeatherViewTests: XCTestCase {
     }
     
     func testResponseUnknownError() {
-        let stub = WeatherFetcherStub(result: .failure(.unknownError))
-        stub.fetchWeather(completion: { result in
+        model.jsonDecoder.dateDecodingStrategy = .secondsSince1970 // iso8601以外を指定
+        model.fetchWeather { [weak self] result in
+            guard self == self else { return }
             switch result {
             case .success(_):
-                return
+                XCTFail("\(#function) fail")
             case .failure(let error):
+                XCTAssertEqual(error, APIError.unknownError)
                 XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
             }
-        })
+        }
     }
     
     func testResponseInvalidParameterError() {
-        let stub = WeatherFetcherStub(result: .failure(.invalidParameterError))
-        stub.fetchWeather(completion: { result in
+        model.jsonEncoder.dateEncodingStrategy = .secondsSince1970 // iso8601以外を指定
+        model.fetchWeather { [weak self] result in
+            guard self == self else { return }
             switch result {
             case .success(_):
-                return
+                XCTFail("\(#function) fail")
             case .failure(let error):
+                XCTAssertEqual(error, APIError.invalidParameterError)
                 XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
             }
-        })
+        }
     }
 }
