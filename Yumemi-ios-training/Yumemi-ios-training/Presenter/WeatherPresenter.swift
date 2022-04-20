@@ -8,10 +8,10 @@
 import Foundation
 
 protocol WeatherPresenterProtocolInput {
-    func fetchWeather()
+    func fetchWeather() async
 }
 
-protocol WeatherPresenterProtocolOutput: AnyObject {
+@MainActor protocol WeatherPresenterProtocolOutput: AnyObject {
     func showWeather(weatherResponse: WeatherResponse)
     func showErrorAlert(with message: String?)
     func startIndicatorAnimating()
@@ -28,25 +28,16 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         self.model = WeatherFetcher()
     }
     
-    func fetchWeather() {
-        view?.startIndicatorAnimating()
-        DispatchQueue.global().async {
-            defer {
-                DispatchQueue.main.async {
-                    self.view?.stopIndicatorAnimating()
-                }
-            }
-            self.model.fetchWeather { [weak self] result in
-                switch result {
-                case .success(let weather):
-                    DispatchQueue.main.async {
-                        self?.view?.showWeather(weatherResponse: weather)
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        self?.view?.showErrorAlert(with: error.errorDescription)
-                    }
-                }
+    func fetchWeather() async {
+        await view?.startIndicatorAnimating()
+        Task {
+            switch await self.model.fetchWeather() {
+            case .success(let weather):
+                await self.view?.showWeather(weatherResponse: weather)
+                await self.view?.stopIndicatorAnimating()
+            case .failure(let error):
+                await self.view?.showErrorAlert(with:error.errorDescription)
+                await self.view?.stopIndicatorAnimating()
             }
         }
     }
