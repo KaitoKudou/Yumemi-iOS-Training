@@ -28,7 +28,7 @@ class WeatherViewTests: XCTestCase {
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, true) // インジケータが表示されるとpresenter.fetchWeather()が呼ばれていることがわかる
     }
     
-    func testShowInvalidParameterErrorAlert() {
+    @MainActor func testShowInvalidParameterErrorAlert() {
         viewController?.showErrorAlert(with: R.string.message.invalidParameterError())
         XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
         XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
@@ -36,7 +36,7 @@ class WeatherViewTests: XCTestCase {
         XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.invalidParameterError())
     }
     
-    func testShowUnknownErrorAlert() {
+    @MainActor func testShowUnknownErrorAlert() {
         viewController?.showErrorAlert(with: R.string.message.unknownError())
         XCTAssertTrue(viewController?.presentedViewController is UIAlertController)
         XCTAssertEqual(viewController?.presentedViewController?.title, R.string.message.alertControllerTitle())
@@ -44,28 +44,28 @@ class WeatherViewTests: XCTestCase {
         XCTAssertEqual((viewController?.presentedViewController as? UIAlertController)?.message, R.string.message.unknownError())
     }
     
-    func testShowSunnyImageWhenResponseIsSunny() {
+    @MainActor func testShowSunnyImageWhenResponseIsSunny() {
         viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date()))
         XCTAssertNotNil(viewController?.weatherImageView)
         XCTAssertEqual(viewController?.weatherImageView.image, R.image.sunny())
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
-    func testShowCloudyImageWhenResponseIsCloudy() {
+    @MainActor func testShowCloudyImageWhenResponseIsCloudy() {
         viewController?.showWeather(weatherResponse: WeatherResponse(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date()))
         XCTAssertNotNil(viewController?.weatherImageView)
         XCTAssertEqual(viewController?.weatherImageView.image, R.image.cloudy())
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
-    func testShowRainyImageWhenResponseIsRainy() {
+    @MainActor func testShowRainyImageWhenResponseIsRainy() {
         viewController?.showWeather(weatherResponse: WeatherResponse(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date()))
         XCTAssertNotNil(viewController?.weatherImageView)
         XCTAssertEqual(viewController?.weatherImageView.image, R.image.rainy())
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
-    func testShowTemperatureLabel() {
+    @MainActor func testShowTemperatureLabel() {
         viewController?.showWeather(weatherResponse: WeatherResponse(weather: .sunny, maxTemp: 10, minTemp: 5, date: Date()))
         XCTAssertNotNil(viewController?.maxTemperatureLabel)
         XCTAssertNotNil(viewController?.minTemperatureLabel)
@@ -74,31 +74,25 @@ class WeatherViewTests: XCTestCase {
         XCTAssertEqual(viewController?.activityIndicatorView.isAnimating, false)
     }
     
-    func testResponseUnknownError() {
+    func testResponseUnknownError() async {
         model.jsonDecoder.dateDecodingStrategy = .secondsSince1970 // iso8601以外を指定
-        model.fetchWeather { [weak self] result in
-            guard self == self else { return }
-            switch result {
-            case .success(_):
-                XCTFail("\(#function) fail")
-            case .failure(let error):
-                XCTAssertEqual(error, APIError.unknownError)
-                XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
-            }
+        switch await model.fetchWeather() {
+        case .success(_):
+            XCTFail("\(#function) fail")
+        case .failure(let error):
+            XCTAssertEqual(error, APIError.unknownError)
+            XCTAssertEqual(error.errorDescription, R.string.message.unknownError())
         }
     }
     
-    func testResponseInvalidParameterError() {
+    func testResponseInvalidParameterError() async {
         model.jsonEncoder.dateEncodingStrategy = .secondsSince1970 // iso8601以外を指定
-        model.fetchWeather { [weak self] result in
-            guard self == self else { return }
-            switch result {
-            case .success(_):
-                XCTFail("\(#function) fail")
-            case .failure(let error):
-                XCTAssertEqual(error, APIError.invalidParameterError)
-                XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
-            }
+        switch await model.fetchWeather() {
+        case .success(_):
+            XCTFail("\(#function) fail")
+        case .failure(let error):
+            XCTAssertEqual(error, APIError.invalidParameterError)
+            XCTAssertEqual(error.errorDescription, R.string.message.invalidParameterError())
         }
     }
 }
