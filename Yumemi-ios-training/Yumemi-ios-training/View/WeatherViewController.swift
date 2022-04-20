@@ -28,7 +28,9 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func reloadWeather(_ sender: Any) {
-        presenter.fetchWeather()
+        Task {
+            await presenter.fetchWeather()
+        }
     }
     
     @IBAction func closeWeatherView(_ sender: Any) {
@@ -36,11 +38,13 @@ class WeatherViewController: UIViewController {
     }
     
     @objc func viewWillEnterForeground(_ notification: Notification) {
-        presenter.fetchWeather()
+        Task {
+            await presenter.fetchWeather()
+        }
     }
 }
 
-extension WeatherViewController: WeatherPresenterProtocolOutput {
+@MainActor extension WeatherViewController: WeatherPresenterProtocolOutput {
     func showErrorAlert(with message: String?) {
         let alert = UIAlertController(title: R.string.message.alertControllerTitle(), message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: R.string.message.alertActionTitle(), style: .default))
