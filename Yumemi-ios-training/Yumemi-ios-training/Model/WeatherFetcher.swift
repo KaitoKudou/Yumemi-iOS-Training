@@ -9,7 +9,7 @@ import Foundation
 import YumemiWeather
 
 protocol WeatherFetchable {
-    func fetchWeather(completion: @escaping(Result<WeatherResponse, APIError>) -> Void)
+    func fetchWeather() async -> Result<WeatherResponse, APIError>
 }
 
 class WeatherFetcher: WeatherFetchable {
@@ -24,18 +24,18 @@ class WeatherFetcher: WeatherFetchable {
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
-    func fetchWeather(completion: @escaping(Result<WeatherResponse, APIError>) -> Void) {
+    func fetchWeather() async -> Result<WeatherResponse, APIError> {
         do {
             let jsonData = try self.jsonEncoder.encode(WeatherRequest(area: "tokyo", date: Date()))
-            guard let jsonString = String(data: jsonData, encoding: .utf8) else {  completion(.failure(APIError.invalidParameterError))
-                return
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else {
+                return .failure(APIError.invalidParameterError)
             }
-            let weatherJSONString = try YumemiWeather.syncFetchWeather(jsonString)
-            completion(.success(try self.jsonDecoder.decode(WeatherResponse.self, from: Data(weatherJSONString.utf8))))
+            let weatherJSONString = try await YumemiWeather.asyncFetchWeather(jsonString)
+            return .success((try self.jsonDecoder.decode(WeatherResponse.self, from: Data(weatherJSONString.utf8))))
         } catch let error as YumemiWeatherError {
-            completion(.failure(APIError(error: error)))
+            return .failure(APIError(error: error))
         } catch {
-            completion(.failure(APIError.unknownError))
+            return .failure(APIError.unknownError)
         }
     }
 }
