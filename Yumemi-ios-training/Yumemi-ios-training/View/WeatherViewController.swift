@@ -8,35 +8,53 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-
-    @IBOutlet weak var weatherImageView: UIImageView!
-    @IBOutlet weak var minTemperatureLabel: UILabel!
-    @IBOutlet weak var maxTemperatureLabel: UILabel!
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var reloadButton: UIButton!
+    @IBOutlet weak var weatherTableView: UITableView!
     private var presenter: WeatherPresenterProtocolInput!
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = WeatherPresenter(view: self, model: WeatherFetcher())
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        weatherTableView.delegate = self
+        weatherTableView.dataSource = self
+        weatherTableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
+        refreshControl = UIRefreshControl()
+        weatherTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
     
     deinit {
         print("\(type(of: self)): " + #function)
     }
     
-    @IBAction func reloadWeather(_ sender: Any) {
-        presenter.fetchWeather()
-    }
-    
-    @IBAction func closeWeatherView(_ sender: Any) {
-        dismiss(animated: true)
-    }
-    
     @objc func viewWillEnterForeground(_ notification: Notification) {
         presenter.fetchWeather()
+    }
+    
+    @objc func refresh(_ sender: UIRefreshControl) {
+        presenter.fetchWeather()
+    }
+}
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.numberOfRepositories
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        let repository = presenter.repositories[indexPath.row]
+        cell.configure(weatherResponses: repository)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(presenter.repositories[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 }
 
@@ -47,31 +65,11 @@ class WeatherViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    func showWeather(weatherResponse: WeatherResponse) {
-        switch weatherResponse.weather {
-        case .sunny:
-            weatherImageView.image = R.image.sunny()
-            weatherImageView.tintColor = R.color.red()
-        case .cloudy:
-            weatherImageView.image = R.image.cloudy()
-            weatherImageView.tintColor = R.color.gray()
-        case .rainy:
-            weatherImageView.image = R.image.rainy()
-            weatherImageView.tintColor = R.color.blue()
-        }
-        minTemperatureLabel.text = String(weatherResponse.minTemp)
-        maxTemperatureLabel.text = String(weatherResponse.maxTemp)
+    func reloadWeatherTableView() {
+        weatherTableView.reloadData()
     }
     
-    func startIndicatorAnimating() {
-        activityIndicatorView.startAnimating()
-        closeButton.isEnabled = false
-        reloadButton.isEnabled = false
-    }
-    
-    func stopIndicatorAnimating() {
-        activityIndicatorView.stopAnimating()
-        closeButton.isEnabled = true
-        reloadButton.isEnabled = true
+    func stopRefreshControl() {
+        refreshControl.endRefreshing()
     }
 }
