@@ -8,20 +8,25 @@
 import Foundation
 
 protocol WeatherPresenterProtocolInput {
+    var numberOfRepositories: Int { get }
+    var repositories: [WeatherListResponse] { get }
     func fetchWeather()
 }
 
 @MainActor protocol WeatherPresenterProtocolOutput: AnyObject {
-    func showWeather(weatherResponse: WeatherResponse)
     func showErrorAlert(with message: String?)
-    func startIndicatorAnimating()
-    func stopIndicatorAnimating()
+    func reloadWeatherTableView()
+    func stopRefreshControl()
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
     
     weak var view: WeatherPresenterProtocolOutput?
     let model: WeatherFetchable
+    private(set) var repositories: [WeatherListResponse] = []
+    var numberOfRepositories: Int {
+        return repositories.count
+    }
     
     init(view: WeatherPresenterProtocolOutput, model: WeatherFetchable) {
         self.view = view
@@ -30,17 +35,14 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
     
     func fetchWeather() {
         Task {
-            await self.view?.startIndicatorAnimating()
-            defer {
-                Task {
-                    await self.view?.stopIndicatorAnimating()
-                }
-            }
             switch await self.model.fetchWeather() {
-            case .success(let weather):
-                await self.view?.showWeather(weatherResponse: weather)
+            case .success(let weatherList):
+                self.repositories = weatherList
+                await self.view?.reloadWeatherTableView()
+                await self.view?.stopRefreshControl()
             case .failure(let error):
                 await self.view?.showErrorAlert(with:error.errorDescription)
+                await self.view?.stopRefreshControl()
             }
         }
     }
