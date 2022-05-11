@@ -65,6 +65,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="areaLabel" destination="74S-sM-6tG" id="7kF-zu-9d1"/>
+                <outlet property="maxTemperatureLabel" destination="7bM-kZ-P08" id="qsG-t7-lKR"/>
+                <outlet property="minTemperatureLabel" destination="IVs-SF-c7t" id="mdd-AP-g5W"/>
+                <outlet property="weatherImageView" destination="kUN-Kh-KG4" id="68M-bt-JuW"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="79.6875"/>
         </tableViewCell>
     </objects>
