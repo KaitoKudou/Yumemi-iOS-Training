@@ -11,6 +11,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherTableView: UITableView!
     private var presenter: WeatherPresenterProtocolInput!
     private var refreshControl: UIRefreshControl!
+    private var loadingView: UIView!
+    private var isLoadingView = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,8 @@ class WeatherViewController: UIViewController {
         refreshControl = UIRefreshControl()
         weatherTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        isLoadingView.toggle()
+        presenter.fetchWeather(isLoadingView: isLoadingView)
     }
     
     deinit {
@@ -29,11 +33,12 @@ class WeatherViewController: UIViewController {
     }
     
     @objc func viewWillEnterForeground(_ notification: Notification) {
-        presenter.fetchWeather()
+        isLoadingView.toggle()
+        presenter.fetchWeather(isLoadingView: isLoadingView)
     }
     
     @objc func refresh(_ sender: UIRefreshControl) {
-        presenter.fetchWeather()
+        presenter.fetchWeather(isLoadingView: isLoadingView)
     }
 }
 
@@ -71,5 +76,20 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func stopRefreshControl() {
         refreshControl.endRefreshing()
+    }
+    
+    func showIndicator() {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        loadingView = UIView(frame: self.view.bounds)
+        loadingView?.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        indicatorView.center = loadingView.center
+        indicatorView.startAnimating()
+        loadingView?.addSubview(indicatorView)
+        view.addSubview(loadingView)
+    }
+    
+    func removeIndicator() {
+        loadingView.removeFromSuperview()
+        isLoadingView.toggle()
     }
 }

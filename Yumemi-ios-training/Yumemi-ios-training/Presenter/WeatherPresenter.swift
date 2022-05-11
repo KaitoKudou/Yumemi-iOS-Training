@@ -10,13 +10,15 @@ import Foundation
 protocol WeatherPresenterProtocolInput {
     var numberOfRepositories: Int { get }
     var repositories: [WeatherListResponse] { get }
-    func fetchWeather()
+    func fetchWeather(isLoadingView: Bool)
 }
 
 @MainActor protocol WeatherPresenterProtocolOutput: AnyObject {
     func showErrorAlert(with message: String?)
     func reloadWeatherTableView()
     func stopRefreshControl()
+    func showIndicator()
+    func removeIndicator()
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
@@ -33,8 +35,18 @@ class WeatherPresenter: WeatherPresenterProtocolInput {
         self.model = WeatherFetcher()
     }
     
-    func fetchWeather() {
+    func fetchWeather(isLoadingView: Bool) {
         Task {
+            if isLoadingView {
+                await self.view?.showIndicator()
+            }
+            defer {
+                if isLoadingView {
+                    Task {
+                        await self.view?.removeIndicator()
+                    }
+                }
+            }
             switch await self.model.fetchWeather() {
             case .success(let weatherList):
                 self.repositories = weatherList
