@@ -13,10 +13,12 @@ class WeatherViewController: UIViewController {
     private var refreshControl: UIRefreshControl!
     private var loadingView: UIView!
     private var isLoadingView = false
+    private var index = 0
+    private let areas =  ["Sapporo", "Sendai", "Niigata", "Kanazawa", "Tokyo", "Nagoya", "Osaka", "Hiroshima", "Kochi", "Fukuoka", "Kagoshima", "Naha"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WeatherPresenter(view: self, model: WeatherFetcher())
+        presenter = WeatherPresenter(view: self, model: WeatherListFetcher())
         NotificationCenter.default.addObserver(self, selector: #selector(viewWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
         weatherTableView.delegate = self
         weatherTableView.dataSource = self
@@ -25,7 +27,15 @@ class WeatherViewController: UIViewController {
         weatherTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         isLoadingView.toggle()
-        presenter.fetchWeather(isLoadingView: isLoadingView)
+        presenter.fetchWeather(isLoadingView: isLoadingView, areas: areas, date: Date())
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toWeatherDetail"{
+            guard let weatherDetailViewController = segue.destination as? WeatherDetailViewController else { return }
+            weatherDetailViewController.area = presenter.repositories[index].area
+            weatherDetailViewController.date = presenter.repositories[index].info.date
+        }
     }
     
     deinit {
@@ -34,11 +44,11 @@ class WeatherViewController: UIViewController {
     
     @objc func viewWillEnterForeground(_ notification: Notification) {
         isLoadingView.toggle()
-        presenter.fetchWeather(isLoadingView: isLoadingView)
+        presenter.fetchWeather(isLoadingView: isLoadingView, areas: areas, date: Date())
     }
     
     @objc func refresh(_ sender: UIRefreshControl) {
-        presenter.fetchWeather(isLoadingView: isLoadingView)
+        presenter.fetchWeather(isLoadingView: isLoadingView, areas: areas, date: Date())
     }
 }
 
@@ -55,7 +65,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(presenter.repositories[indexPath.row])
+        index = indexPath.row
+        presenter.didSelectRow(at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -90,6 +101,11 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func removeIndicator() {
         loadingView.removeFromSuperview()
+        loadingView = nil
         isLoadingView.toggle()
+    }
+    
+    func showWeatherDetailView(index: Int) {
+        performSegue(withIdentifier: "toWeatherDetail", sender: self)
     }
 }
