@@ -13,6 +13,8 @@ class WeatherDetailViewController: UIViewController {
     private var loadingView: UIView!
     var area: String?
     var date: Date?
+    private var repositories: [WeatherResponse] = []
+    private var repository: WeatherResponse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,29 +25,31 @@ class WeatherDetailViewController: UIViewController {
         WeatherDetailTableView.register(UINib(nibName: "WeatherDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherDetailTableViewCell")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         guard let date = date, let area = area else { return }
         presenter.fetchWeather(area: area, date: date)
-    }
-    
-    func fetchWeather() async {
-        guard let date = date, let area = area else { return }
-        for index in 1 ..< 8 {
-            guard let modifiedDate = Calendar.current.date(byAdding: .day, value: index, to: date) else { return }
-            presenter.fetchWeather(area: area, date: modifiedDate)
+        if let repository = Cache.shared.object(forKey: area as AnyObject) {
+            self.repositories = repository as! [WeatherResponse]
         }
     }
 }
 
 extension WeatherDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRepositories
+        if repositories.isEmpty {
+            return presenter.numberOfRepositories
+        }
+        return repositories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherDetailTableViewCell", for: indexPath) as! WeatherDetailTableViewCell
-        let repository = presenter.repositories[indexPath.row]
+        if repositories.isEmpty {
+            repository = presenter.repositories[indexPath.row]
+        } else {
+            repository = repositories[indexPath.row]
+        }
         cell.configure(weatherResponses: repository)
         return cell
     }
