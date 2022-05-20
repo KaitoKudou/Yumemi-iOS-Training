@@ -35,6 +35,10 @@ class WeatherDetailPresenter: WeatherDetailPresenterProtocolInput {
     }
     
     func fetchWeather(area: String, date: Date) {
+        if Cache.shared.object(forKey: area as AnyObject) != nil {
+            return
+        }
+        
         Task {
             await self.view?.showIndicator()
             defer {
@@ -49,6 +53,7 @@ class WeatherDetailPresenter: WeatherDetailPresenterProtocolInput {
                 switch await self.model.fetchWeather(area: area, date: modifiedDate) {
                 case .success(let weatherList):
                     self.repositories.append(weatherList)
+                    Cache.shared.setObject(self.repositories as AnyObject, forKey: area as AnyObject)
                 case .failure(let error):
                     await self.view?.showErrorAlert(with:error.errorDescription)
                 }
