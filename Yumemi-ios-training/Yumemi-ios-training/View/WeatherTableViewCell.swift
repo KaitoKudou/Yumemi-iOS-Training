@@ -14,16 +14,8 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var maxTemperatureLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    func configure(weatherResponses: WeatherListResponse) {
-        switch weatherResponses.info.weather {
+    func configure(weatherListResponse: WeatherListResponse) {
+        switch weatherListResponse.info.weather {
         case .sunny:
             weatherImageView.image = R.image.sunny()
             weatherImageView.tintColor = R.color.red()
@@ -34,8 +26,8 @@ class WeatherTableViewCell: UITableViewCell {
             weatherImageView.image = R.image.rainy()
             weatherImageView.tintColor = R.color.blue()
         }
-        areaLabel.text = weatherResponses.area
-        minTemperatureLabel.text = String(weatherResponses.info.minTemp)
-        maxTemperatureLabel.text = String(weatherResponses.info.maxTemp)
+        areaLabel.text = weatherListResponse.area
+        minTemperatureLabel.text = String(weatherListResponse.info.minTemp)
+        maxTemperatureLabel.text = String(weatherListResponse.info.maxTemp)
     }
 }

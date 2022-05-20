@@ -60,7 +60,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         let repository = presenter.repositories[indexPath.row]
-        cell.configure(weatherResponses: repository)
+        cell.configure(weatherListResponse: repository)
         return cell
     }
     
