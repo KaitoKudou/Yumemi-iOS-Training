@@ -33,8 +33,7 @@ class WeatherViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWeatherDetail"{
             guard let weatherDetailViewController = segue.destination as? WeatherDetailViewController else { return }
-            weatherDetailViewController.area = presenter.repositories[index].area
-            weatherDetailViewController.date = presenter.repositories[index].info.date
+            weatherDetailViewController.weatherDetailInfo = presenter.repositories[index]
         }
     }
     
