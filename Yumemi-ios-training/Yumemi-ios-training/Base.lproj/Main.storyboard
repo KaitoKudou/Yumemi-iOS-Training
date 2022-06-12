@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,43 +34,12 @@
                     <navigationItem key="navigationItem" title="天気一覧" id="BvC-YL-E0Z"/>
                     <connections>
                         <outlet property="weatherTableView" destination="2yS-mb-eDZ" id="ylI-Kh-fe5"/>
-                        <segue destination="s9D-DY-ga8" kind="show" identifier="toWeatherDetail" id="gXE-vM-Ncb"/>
+                        <segue destination="Rjf-ll-b2g" kind="show" identifier="toWeatherDetail" id="Gn3-Se-U6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="633" y="84"/>
-        </scene>
-        <!--Weather Detail View Controller-->
-        <scene sceneID="yiM-cF-2Ei">
-            <objects>
-                <viewController id="s9D-DY-ga8" customClass="WeatherDetailViewController" customModule="Yumemi_ios_training" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4ZS-EA-Ugw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZC2-I8-6c8">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="bbH-rc-dPd"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ZC2-I8-6c8" firstAttribute="leading" secondItem="bbH-rc-dPd" secondAttribute="leading" id="Xha-27-rDV"/>
-                            <constraint firstAttribute="bottom" secondItem="ZC2-I8-6c8" secondAttribute="bottom" id="ePf-Cc-Ry2"/>
-                            <constraint firstItem="ZC2-I8-6c8" firstAttribute="top" secondItem="bbH-rc-dPd" secondAttribute="top" id="fIE-z0-i2b"/>
-                            <constraint firstItem="ZC2-I8-6c8" firstAttribute="trailing" secondItem="bbH-rc-dPd" secondAttribute="trailing" id="tN5-p3-WU0"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="M0e-Xh-goe"/>
-                    <connections>
-                        <outlet property="WeatherDetailTableView" destination="ZC2-I8-6c8" id="oEg-1w-3bb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xdT-07-qXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1502.8985507246377" y="83.705357142857139"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="Iw7-X5-kIk">
@@ -107,8 +77,74 @@
             </objects>
             <point key="canvasLocation" x="-265.21739130434787" y="83.705357142857139"/>
         </scene>
+        <!--Weather Detail View Controller-->
+        <scene sceneID="iyB-ua-xJc">
+            <objects>
+                <viewController id="Rjf-ll-b2g" customClass="WeatherDetailViewController" customModule="Yumemi_ios_training" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7D5-Tr-AsC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6e1-9W-EMa">
+                                <rect key="frame" x="65" y="313" width="284" height="270.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dst-35-Jl4">
+                                        <rect key="frame" x="21" y="0.0" width="242" height="242"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="dst-35-Jl4" secondAttribute="height" multiplier="1:1" id="w91-QJ-Lba"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjw-mw-mSG">
+                                        <rect key="frame" x="21" y="250" width="242" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ーー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jt-eo-ksx">
+                                                <rect key="frame" x="0.0" y="0.0" width="121" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="Blue"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ーー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-fT-dqj">
+                                                <rect key="frame" x="121" y="0.0" width="121" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="Red"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8jt-eo-ksx" firstAttribute="width" secondItem="dst-35-Jl4" secondAttribute="width" multiplier="0.5" id="fc0-c4-WjV"/>
+                                    <constraint firstItem="7L4-fT-dqj" firstAttribute="width" secondItem="dst-35-Jl4" secondAttribute="width" multiplier="0.5" id="lUc-km-ef2"/>
+                                    <constraint firstItem="dst-35-Jl4" firstAttribute="width" secondItem="6e1-9W-EMa" secondAttribute="width" multiplier="0.5" constant="100" id="mKv-jh-sGF"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XWE-eo-bl3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6e1-9W-EMa" firstAttribute="centerY" secondItem="7D5-Tr-AsC" secondAttribute="centerY" id="3u5-4a-sKx"/>
+                            <constraint firstItem="6e1-9W-EMa" firstAttribute="centerX" secondItem="7D5-Tr-AsC" secondAttribute="centerX" id="tep-BO-Tea"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9gT-il-GpB"/>
+                    <connections>
+                        <outlet property="WeatherImageView" destination="dst-35-Jl4" id="fXK-se-6Ig"/>
+                        <outlet property="maxTemperatureLabel" destination="7L4-fT-dqj" id="HRB-nr-J14"/>
+                        <outlet property="minTemperatureLabel" destination="8jt-eo-ksx" id="EPr-mu-XhR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pmW-ez-dL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1533" y="84"/>
+        </scene>
     </scenes>
     <resources>
+        <namedColor name="Blue">
+            <color red="0.20499999821186066" green="0.53700000047683716" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Red">
+            <color red="1" green="0.210999995470047" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
