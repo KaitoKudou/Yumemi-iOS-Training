@@ -8,40 +8,63 @@
 import Foundation
 
 protocol WeatherPresenterProtocolInput {
-    func fetchWeather()
+    var numberOfRepositories: Int { get }
+    var repositories: [WeatherListResponse] { get }
+    func fetchWeather(isLoadingView: Bool, areas: [String], date: Date)
+    func didSelectRow(at indexPathRow: Int)
 }
 
 @MainActor protocol WeatherPresenterProtocolOutput: AnyObject {
-    func showWeather(weatherResponse: WeatherResponse)
     func showErrorAlert(with message: String?)
-    func startIndicatorAnimating()
-    func stopIndicatorAnimating()
+    func reloadWeatherTableView()
+    func stopRefreshControl()
+    func showIndicator()
+    func removeIndicator()
+    func showWeatherDetailView(index: Int)
 }
 
 class WeatherPresenter: WeatherPresenterProtocolInput {
     
     weak var view: WeatherPresenterProtocolOutput?
-    let model: WeatherFetchable
-    
-    init(view: WeatherPresenterProtocolOutput, model: WeatherFetchable) {
-        self.view = view
-        self.model = WeatherFetcher()
+    let model: WeatherListFetchable
+    private(set) var repositories: [WeatherListResponse] = []
+    var numberOfRepositories: Int {
+        return repositories.count
     }
     
-    func fetchWeather() {
+    init(view: WeatherPresenterProtocolOutput, model: WeatherListFetchable) {
+        self.view = view
+        self.model = WeatherListFetcher()
+    }
+    
+    func fetchWeather(isLoadingView: Bool, areas: [String], date: Date) {
         Task {
-            await self.view?.startIndicatorAnimating()
+            if isLoadingView {
+                await self.view?.showIndicator()
+            }
             defer {
+                if isLoadingView {
+                    Task {
+                        await self.view?.removeIndicator()
+                    }
+                }
                 Task {
-                    await self.view?.stopIndicatorAnimating()
+                    await self.view?.stopRefreshControl()
                 }
             }
-            switch await self.model.fetchWeather() {
-            case .success(let weather):
-                await self.view?.showWeather(weatherResponse: weather)
+            switch await self.model.fetchWeather(areas: areas, date: date) {
+            case .success(let weatherList):
+                self.repositories = weatherList
+                await self.view?.reloadWeatherTableView()
             case .failure(let error):
                 await self.view?.showErrorAlert(with:error.errorDescription)
             }
+        }
+    }
+    
+    func didSelectRow(at indexPathRow: Int) {
+        Task {
+            await view?.showWeatherDetailView(index: indexPathRow)
         }
     }
 }
